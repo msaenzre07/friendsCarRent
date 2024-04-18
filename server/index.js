@@ -1,17 +1,24 @@
 const express = require ('express');
-const app  = express();
-const cors = require('cors');
 const bodyParser = require('body-parser');
-require("dotenv").config();
+const cors = require('cors');
+const app = express(); 
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.json());
+
+// Configuración personalizada de CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 
 //importar rutas incluir las demás PEND
-const vehiculosRoutes = require('./routes/vehiculosRoutes.js');
-const usuariosRoutes = require('./routes/usuariosRoutes.js'); 
+const vehiculosRoutes = require('./routes/vehiculosRoutes');
+const usuariosRoutes = require('./routes/usuariosRoutes'); 
 
 
 // Rutas incluir las demás PEND
@@ -20,7 +27,7 @@ app.use('/login', usuariosRoutes );
 
 
 
-// Manejo de errores
+ //Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Ocurrió un error en el servidor" });

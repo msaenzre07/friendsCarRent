@@ -16,15 +16,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('file'), function(req, res){
+const uploadImagen = (req, res) => {
 // Maneja la carga de imágenes y devuelve la URL de la imagen
   const imageUrl =  "http://localhost:3001/"+ req.file.path; // URL de la imagen cargada
 res.json({ imageUrl: imageUrl });
-});
+};
 
 
 // Crear un vehículo
-router.post("/create", async (req, res) => {
+const addVehiculos = async (req, res) => {
   try {
     const marca = req.body.marca;
     const modelo = req.body.modelo;
@@ -42,10 +42,10 @@ router.post("/create", async (req, res) => {
       .status(500)
       .json({ message: "Error al registrar un vehículo", error: err });
   }
-});
+};
 
 //Actualizar vehículo
-router.put("/update", async (req, res) => {
+const updateVehiculos = async (req, res) => {
   try {
     const id = req.body.id;
     const marca = req.body.nombre;
@@ -74,10 +74,10 @@ router.put("/update", async (req, res) => {
       .status(500)
       .json({ message: "Error al actualizar un vehículo", error: err });
   }
-});
+};
 
 //Obtener lista de vehículos
-router.get("/vehiculos", async (req, res) => {
+const getVehiculos = async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM vehiculos");
     res.send(result); // Envía la lista de vehículos como respuesta
@@ -85,10 +85,10 @@ router.get("/vehiculos", async (req, res) => {
     console.error("Error al obtener la lista de vehículos: ", err);
     res.status(500).send("Error al obtener la lista de vehículos");
   }
-});
+};
 
 // Eliminar un vehículo
-router.delete("/delete/:id", async (req, res) => {
+const deleteVehiculos = async (req, res) => {
   const id = req.params.id;
   const sql = "DELETE FROM vehiculos WHERE id = ?";
 
@@ -102,12 +102,12 @@ router.delete("/delete/:id", async (req, res) => {
   } catch (err) {
     console.error("Error al eliminar un vehículo: ", err);
   }
-});
+};
 
 module.exports = {
   uploadImagen,
-  crearVehiculo,
-  actualizarVehiculo,
-  obtenerVehiculos,
-  eliminarVehiculo,
+  addVehiculos,
+  updateVehiculos,
+  deleteVehiculos,
+  getVehiculos,
 };

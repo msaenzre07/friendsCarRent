@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from 'axios';
 import { Container, Row } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
@@ -19,7 +19,7 @@ function Vehiculos() {
   const [vehiculosList, setVehiculos] = useState([]); //Lista de Vehiculos-se inicializa una lista vacía
 
   //Add imagen
-  const upload = async () => {
+  const uploadImagen = async () => {
     try {
       if (!file) {
         return; // No hay imagen seleccionada, salir de la función
@@ -36,10 +36,18 @@ function Vehiculos() {
   useEffect(() => {
     getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
   }, []); // El segundo parámetro [] indica que se ejecutará solo en la primera renderización
+  //CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
+  const getVehiculos = () => {
+    axios.get("http://localhost:3001/Vehiculos").then((response) => {
+      setVehiculos(response.data); //asigna los vehiculos y hace una llamada de los datos desde API
+      alert("Vehículo registrado");
+    });
+  };
+  
 
   //CRUD-Add Vehiculos
   const addVehiculos = async () => {
-    const imgUrl = await upload(); // se obtiene la URL de la imagen
+    const imgUrl = await uploadImagen(); // se obtiene la URL de la imagen
     axios
       .post("http://localhost:3001/create", {
         marca: marca,
@@ -74,7 +82,7 @@ function Vehiculos() {
   };
 
   //CRUD-update  Vehiculos ruta
-  const update = () => {
+  const updateVehiculos = () => {
     axios
       .put("http://localhost:3001/update", {
         id: id,
@@ -125,7 +133,7 @@ function Vehiculos() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3001/api/delete/${val.id}`)
+          .delete(`http://localhost:3001/delete/${val.id}`)
           .then(() => {
             getVehiculos();
             limpiarCampos();
@@ -176,14 +184,7 @@ function Vehiculos() {
     setId(val.id);
   };
 
-  //CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
-  const getVehiculos = () => {
-    axios.get("http://localhost:3001/api/Vehiculos").then((response) => {
-      setVehiculos(response.data); //asigna los vehiculos y hace una llamada de los datos desde API
-      alert("Vehículo registrado");
-    });
-  };
-  getVehiculos();
+  
 
   return (
     <Helmet title="Mantenimiento de Vehículos">
@@ -293,7 +294,7 @@ function Vehiculos() {
                       className="input-group-text"
                       htmlFor="inputGroupFile02"
                       type="button"
-                      onClick={upload}
+                      onClick={uploadImagen}
                     >
                       Agregar Imagen
                     </button>
@@ -306,7 +307,7 @@ function Vehiculos() {
                 <div className="card-footer text-body-muted">
                   {editar ? (
                     <div>
-                      <button className="btn btn-warning m-2" onClick={update}>
+                      <button className="btn btn-warning m-2" onClick={updateVehiculos}>
                         Actualizar
                       </button>
                       <button
