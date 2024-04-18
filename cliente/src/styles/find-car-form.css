@@ -1,8 +1,6 @@
 .find__cars-left {
- 
- background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
- url("../assets/all-images/toyota-offer-2.png");
-  
+  /*background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
+ url("../assets/all-images/toyota-offer-2.png");*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -12,7 +10,7 @@
 .find__cars-left h2 {
   font-weight: 600;
   font-size: 2.8rem;
-  color: #D2691E;
+  color: #d2691e;
 }
 
 @keyframes moverTexto {
@@ -31,18 +29,12 @@
   animation: moverTexto 2s ease infinite; /* Animación que dura 2 segundos y se repite infinitamente */
 }
 
-
-
-
 .form {
-  background: #fff;
-  padding-top: 55px;
-  padding-bottom: 50px;
-  padding-left: 15px;
-  padding-right: 15px;
-  color:#000d6b !important;
-  font-size: 2.2rem;
-    font-weight: 400;
+  background-image: url("../assets/all-images/fondo-blue.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 134px 0px;
 }
 
 .hero__slider-section {
@@ -59,7 +51,8 @@
 }
 
 .form__row {
-  background: #fff;
+  background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
+ url("../assets/all-images/imagen-veh.jpg");
   box-shadow: 5px 5px 15px -5px #7c8a97;
 }
 .journey__time::before {
@@ -84,7 +77,6 @@
 
   .find__cars-left h2 {
     font-size: 1.5rem;
-  
   }
 
   .form {
@@ -132,13 +124,9 @@
 
   .find__cars-left h2 {
     font-size: 1rem;
-   
-   
   }
 
   .hero__form {
     bottom: -250px;
   }
 }
-
-

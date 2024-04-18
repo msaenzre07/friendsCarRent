@@ -6,7 +6,7 @@ const FindCarForm = () => {
     return (
       <Form className="form">
       <div className=" d-flex align-items-center justify-content-between flex-wrap ">
-       <p>Vive la magia y emoción de alquilar un auto en Friend's Car Rent.</p>
+       {/*<p>Vive la magia y emoción de alquilar un auto en Friend's Car Rent.</p>*/}
       </div>
     </Form>
     );

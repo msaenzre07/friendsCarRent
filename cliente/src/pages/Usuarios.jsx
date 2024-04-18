@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from 'sweetalert2';
 
 
-const Usuarios= () => {
+const DatosUsuarios= () => {
 
 // variables que add valores en los campos
 const [nombre, setNombre] = useState("");
@@ -126,4 +126,4 @@ const addUsuarios = () => {
       );
   };
 
-export default Usuarios;
+export default DatosUsuarios;

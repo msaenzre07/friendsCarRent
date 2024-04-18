@@ -26,7 +26,7 @@ display: "Reservar",
   
 
 {
-path: "/Usuarios",
+path: "/DatosUsuarios",
 display: "Usuarios",
 },
 
