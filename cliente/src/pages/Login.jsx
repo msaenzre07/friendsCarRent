@@ -1,38 +1,21 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { Container, Row, Form, Button } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/login.css";
-
 import loginImg from "../assets/all-images/login.png";
 
 function Login() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true;
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:3001/login", {
-        correo,
-        contrasena
-      })
-      .then((res) => {
-        if(res.data.Login){
-          navigate("/dashboard")
 
-        }else{
-          navigate('/')
-        }
-        
-      })
-      .catch((err) => console.log(err));
-  };
+  
+
+   
  
 
   return (
@@ -58,7 +41,7 @@ function Login() {
                             IniciarSesión
                           </p>
 
-                          <Form onSubmit={handleSubmit}>
+                          <Form >
                             <div className="d-flex flex-row align-items-center mb-0">
                               <i
                                 className="ri-mail-check-fill"
@@ -111,7 +94,7 @@ function Login() {
                                   id="contrasena"
                                   className="form-control"
                                   required={true}
-                                />
+                                />                               
                                 <label
                                   className="form-label"
                                   htmlFor="form3Example1c"
@@ -119,27 +102,7 @@ function Login() {
                               </div>
                             </div>
 
-                            <div className="d-flex flex-row align-items-start mb-2">
-                              <i
-                                className="ri-admin-line"
-                                style={{
-                                  color: "#faa935",
-                                  marginRight: "5px",
-                                  marginBottom: "29px",
-                                  marginTop: "0px",
-                                  fontSize: "24px",
-                                }}
-                              ></i>
-                              <div className="form-outline flex-fill mb-0">
-                                <select
-                                  className="form-select"
-                                  aria-label="Default select example"
-                                >
-                                  <option selected>Tipo de Usuario</option>
-                                  <option value="1">Administrador</option>
-                                  <option value="2">Cliente</option>
-                                </select>
-                              </div>
+                          <div className="d-flex flex-row align-items-start mb-2"> 
                             </div>
                             <div
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
@@ -148,9 +111,10 @@ function Login() {
                               <Button
                                 className="btn secondary_btn auth_btn"
                                 type="submit"
+                                
                                
                               >
-                                Iniciar Sesión
+                                
                               </Button>
                             </div>
                           </Form>

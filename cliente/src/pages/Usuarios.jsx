@@ -16,19 +16,18 @@ const [nombre, setNombre] = useState("");
   const [numCedula, setNumCedula] = useState("");
   const [edad, setEdad] = useState("");
   const [correo, setCorreo] = useState("");
-  const [file, setFile] = useState("");
-  const [id, setId] = useState();
+
 
 
 
 //Add datos Usuarios
 const addUsuarios = () => {
-  axios.post("http://localhost:3001/api/create", {
+  axios.post("http://localhost:3001/api/createUser", {
      nombre: nombre,
      numCedula: numCedula,
       edad: edad,
       correo: correo,
-      file: file
+      
     })
     .then(() => {
      

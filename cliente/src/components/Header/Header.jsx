@@ -122,7 +122,7 @@ const Header = () => {
               className=" d-flex align-items-center justify-content-end "
             >
               <button className="header__btn btn ">
-              <a href="https://wa.me/50600000000?text=¿¡Hola! Necesito información para realizar una reservación de vehículo" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/50600000000?text=¡Hola! Necesito información para realizar una reservación de vehículo" target="_blank" rel="noopener noreferrer">
        
             
          <i className="ri-whatsapp-fill" style={{ color: '#15D158', fontSize: '15px'}}></i> WhatsApp

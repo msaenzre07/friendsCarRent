@@ -1,0 +1,5 @@
+###
+//Crea perición
+
+DELETE http://localhost:3001/images/delete/id HTTP/1.1
+

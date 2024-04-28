@@ -6,6 +6,7 @@ import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
 
+
 function Vehiculos() {
   // variables que guardan características de vehículos
   const [marca, setMarca] = useState("");
@@ -18,124 +19,142 @@ function Vehiculos() {
   const [editar, setEditar] = useState(false);
   const [vehiculosList, setVehiculos] = useState([]); //Lista de Vehiculos-se inicializa una lista vacía
 
-  //Add imagen
-  const uploadImagen = async () => {
-    try {
-      if (!file) {
-        return; // No hay imagen seleccionada, salir de la función
-      }
-      const formData = new FormData();
-      formData.append("file", file[0]); // Accede al primer archivo seleccionado
-      const res = await axios.post("http://localhost:3001/upload", formData);
-      return res.data.imageUrl; //backend devuelve la URL de la imagen
-    } catch (err) {
-      console.log(err);
-    }
-  };
+ 
 
-  useEffect(() => {
-    getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
-  }, []); // El segundo parámetro [] indica que se ejecutará solo en la primera renderización
-  //CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
-  const getVehiculos = () => {
-    axios.get("http://localhost:3001/Vehiculos").then((response) => {
-      setVehiculos(response.data); //asigna los vehiculos y hace una llamada de los datos desde API
-      alert("Vehículo registrado");
+//CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
+//UseEffect  Realizar la llamada a la API una vez que el componente se monta.
+useEffect(() => {
+  getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
+
+}, []); // El segundo parámetro [] indica que se ejecutará solo en la primera renderización
+
+
+  const getVehiculos = async () => {
+  try {
+    const response = await axios.get("http://localhost:3001/getVehiculos");
+    setVehiculos(response.data); // Asigna los vehículos obtenidos desde la API
+    alert("Vehículo registrado"); // Se mostrará un mensaje cuando la solicitud sea exitosa
+  }catch (error) {
+    //console.error("Error al obtener los vehículos:", error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Error al obtener los vehículos',
     });
-  };
-  
+  }
+};
 
-  //CRUD-Add Vehiculos
-  const addVehiculos = async () => {
-    const imgUrl = await uploadImagen(); // se obtiene la URL de la imagen
-    axios
-      .post("http://localhost:3001/create", {
-        marca: marca,
-        modelo: modelo,
-        transmision: transmision,
-        kilometraje: kilometraje,
-        precioDia: precioDia,
-        imageUrl: imgUrl, // Se envia la URL de la imagen al backend
-      })
-      .then(() => {
-        getVehiculos();
-        limpiarCampos();
-        Swal.fire({
-          title: "<strong>Registro exitoso!!!</strong>",
-          html:
-            "<i>El vehículo <strong> " +
-            marca +
-            " </strong>fue registrado con exito!!!</i>",
-          icon: "sucess",
-          timer: 3000,
-        }).catch(function (error) {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text:
-              JSON.parse(JSON.stringify(error)).message === "Network Error"
-                ? "Intente más tarde"
-                : JSON.parse(JSON.stringify(error)).message,
-          });
-        });
-      });
-  };
+ //CRUD-Función add Vehiculos
+ const createVehiculos = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("marca", marca);
+    formData.append("modelo", modelo);
+    formData.append("transmision", transmision);
+    formData.append("kilometraje", kilometraje);
+    formData.append("precioDia", precioDia);
+    formData.append("file", file);
 
-  //CRUD-update  Vehiculos ruta
-  const updateVehiculos = () => {
-    axios
-      .put("http://localhost:3001/update", {
-        id: id,
-        marca: marca,
-        modelo: modelo,
-        transmision: transmision,
-        kilometraje: kilometraje,
-        precioDia: precioDia,
-        file: file,
-      })
-      .then(() => {
-        getVehiculos();
-        limpiarCampos();
-        Swal.fire({
-          title: "<strong>Actualización exitosa!!!</strong>",
-          html:
-            "<i>El vehículo <strong> " +
-            marca +
-            " </strong>fue actualizado con exito!!!</i>",
-          icon: "sucess",
-          timer: 3000,
-        }).catch(function (error) {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text:
-              JSON.parse(JSON.stringify(error)).message === "Network Error"
-                ? "Intente más tarde"
-                : JSON.parse(JSON.stringify(error)).message,
-          });
-        });
+    const response = await axios.post("http://localhost:3001/createVehiculos", formData);
+     
+    if (response.data.Status === 'Success') {
+    await getVehiculos();// Vuelve a obtener los vehículos después de agregar uno nuevo
+      limpiarCampos();//Limpia los campos del formulario
+      Swal.fire({
+        title: "<strong>Registro exitoso!!!</strong>",
+        html:
+          "<i>El vehículo <strong> " +
+          marca +
+          " </strong>fue registrado con exito!!!</i>",
+        icon: "success",
+        timer: 3000,
       });
-  };
+    } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error al crear vehículo. Intente más tarde.",
+        });
+      }
+      }catch (error) {
+        //console.error("Error al agregar el vehículo:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text:
+            JSON.parse(JSON.stringify(error)).message === "Network Error"
+              ? "Intente más tarde"
+              : JSON.parse(JSON.stringify(error)).message,
+        });
+      }
+    };
+
+
+//CRUD-update  Vehiculos ruta
+const updateVehiculos = async () => {
+  try {
+      const formData = new FormData();
+    formData.append("id", id);
+    formData.append("marca", marca);
+    formData.append("modelo", modelo);
+    formData.append("transmision", transmision);
+    formData.append("kilometraje", kilometraje);
+    formData.append("precioDia", precioDia);
+    formData.append("file", file);
+
+    const response =  await axios.put("http://localhost:3001/updateVehiculos", formData);
+     
+    if (response.data.Status === 'Success') {
+    await  getVehiculos();// Vuelve a obtener los vehículos después de la actualización
+      limpiarCampos();
+      Swal.fire({
+        title: "<strong>Actualización exitosa!!!</strong>",
+        html:
+          "<i>El vehículo <strong> " +
+          marca +
+          " </strong>fue actualizado con exito!!!</i>",
+        icon: "sucess",
+        timer: 3000,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Error al actualizar vehículo. Intente más tarde.",
+      });
+    }
+      //console.error("Error al actualizar el vehículo:", error);
+    } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text:
+            JSON.parse(JSON.stringify(error)).message === "Network Error"
+              ? "Intente más tarde"
+              : JSON.parse(JSON.stringify(error)).message,
+        });
+      } 
+};
 
   //CRUD-delete  Vehiculos ruta
-  const deleteVehiculos = (val) => {
-    Swal.fire({
+  const deleteVehiculos  = async (val) => {
+    try {
+      const result = await Swal.fire({
       title: "Confirmar eliminado?",
       html:
         "<i>Realmente desea eliminar a <strong> " +
         val.marca +
-        " </strong>fue actualizado con exito!!!</i>",
+        " </strong>fue elinado con éxito!!!</i>",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, eliminarlo!",
-    }).then((result) => {
+    });
       if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:3001/delete/${val.id}`)
-          .then(() => {
-            getVehiculos();
+        await axios
+          .delete(`http://localhost:3001/deleteVehiculos/${val.id}`)      
+            await  getVehiculos();// Vuelve a obtener los vehículos después de eliminar uno
             limpiarCampos();
             Swal.fire({
               position: "top-end",
@@ -144,8 +163,9 @@ function Vehiculos() {
               showConfirmButton: false,
               timer: 1500,
             });
-          })
-          .catch(function (error) {
+          }  
+        } catch (error) {
+          //console.error("Error al eliminar el vehículo:", error);
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -154,37 +174,34 @@ function Vehiculos() {
                 JSON.parse(JSON.stringify(error)).message === "Network Error"
                   ? "Intente más tarde"
                   : JSON.parse(JSON.stringify(error)).message,
-            });
-          });
-      }
-    });
+            });        
+      }  
   };
 
-  //VERIFICAR LOS CAMPOS QUE NO SE LIMPIAN Y PONER LA VARIABLE AQUI O QUITAR
-  const limpiarCampos = () => {
+//VERIFICAR LOS CAMPOS QUE NO SE LIMPIAN Y PONER LA VARIABLE AQUI O QUITAR
+const limpiarCampos = () => {
     setMarca("");
     setModelo("");
     setTransmision("");
     setKilometraje("");
-    setPrecioDia("");
-    setFile("");
+    setPrecioDia(""); 
+    setFile("");  
     setId("");
     setEditar(false);
-  };
+};
 
-  //CRUD-Editar vehículos
-  const editarVehiculos = (val) => {
+//CRUD-Editar vehículos
+const editarVehiculos = (val) => {
     setEditar(true);
     setMarca(val.marca);
     setModelo(val.modelo);
     setTransmision(val.transmision);
     setKilometraje(val.kilometraje);
-    setPrecioDia(val.precioDia);
-    setFile(val.file);
+    setPrecioDia(val.precioDia);  
     setId(val.id);
   };
 
-  
+
 
   return (
     <Helmet title="Mantenimiento de Vehículos">
@@ -281,23 +298,14 @@ function Vehiculos() {
                   </div>
 
                   <div className="input-group mb-3">
-                    <input
+                    <input 
                       type="file"
-                      onChange={(event) => {
-                        setFile(event.target.files);
-                      }}
+                      onChange={(event)=> setFile(event.target.files[0])}
                       className="form-control"
                       id="inputGroupFile02"
                       multiple={false} // Permitir solo una imagen a la vez
                     />
-                    <button
-                      className="input-group-text"
-                      htmlFor="inputGroupFile02"
-                      type="button"
-                      onClick={uploadImagen}
-                    >
-                      Agregar Imagen
-                    </button>
+                  
                   </div>
                   <div className="input-group mb-3">
                     Tamaño máximo de archivo 50 MB.
@@ -318,7 +326,7 @@ function Vehiculos() {
                       </button>
                     </div>
                   ) : (
-                    <button className="btn btn-success" onClick={addVehiculos}>
+                    <button className="btn btn-success" onClick={createVehiculos}>
                       Registrar
                     </button>
                   )}
@@ -350,7 +358,7 @@ function Vehiculos() {
                         <td>{val.precioDia}</td>
                         <td>
                           <img
-                            src={val.imagen}
+                            src={val.file}
                             alt="Imagen de vehículo"
                             style={{ maxWidth: "100px" }}
                           />
