@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Container, Row, Form, Button } from "reactstrap";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,12 +11,6 @@ import loginImg from "../assets/all-images/login.png";
 function Login() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-
-
-  
-
-   
- 
 
   return (
     <Helmet title="">
@@ -41,7 +35,7 @@ function Login() {
                             IniciarSesión
                           </p>
 
-                          <Form >
+                          <Form>
                             <div className="d-flex flex-row align-items-center mb-0">
                               <i
                                 className="ri-mail-check-fill"
@@ -94,7 +88,7 @@ function Login() {
                                   id="contrasena"
                                   className="form-control"
                                   required={true}
-                                />                               
+                                />
                                 <label
                                   className="form-label"
                                   htmlFor="form3Example1c"
@@ -102,8 +96,7 @@ function Login() {
                               </div>
                             </div>
 
-                          <div className="d-flex flex-row align-items-start mb-2"> 
-                            </div>
+                            <div className="d-flex flex-row align-items-start mb-2"></div>
                             <div
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
                               style={{ padding: "5px 10px" }}
@@ -111,10 +104,8 @@ function Login() {
                               <Button
                                 className="btn secondary_btn auth_btn"
                                 type="submit"
-                                
-                               
                               >
-                                
+                                Iniciar Sesión
                               </Button>
                             </div>
                           </Form>

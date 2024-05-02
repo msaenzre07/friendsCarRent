@@ -22,32 +22,24 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
 
 // static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 
 // Rutas  incluir las demás PEND
 app.use( vehiculosRoutes);
 
 app.get('/', (req, res)=>{
-  res.send("Server is ready!")
+  return res.json("Server is ready!")
 })
 
 app.get('/vehiculos',(req, res)=>{
   res.send(vehiculos)
 })
 
-
-/*app.get('/', (req, res)=>{
-  const sql = "SELECT * FROM vehiculos";
-  connection.query(sql, (err, data)=>{
-  if(err) return res.json(err);
-})
-});*/
-
 //Configuración Images
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    return cb(null, "./public/images")
+    return cb(null, "./public")
   },
   filename: function (req, file, cb) {
     return cb(null, `${Date.now()}_${file.originalname}`)
@@ -57,8 +49,8 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
  
 // Ruta para manejar la subida de imágenes
-app.post('/upload', upload.single('file'), (req, res) => {
-  const imagePath = req.file.path.replace('public/images', ''); // Obtiene la ruta relativa de la imagen
+app.get('/vehiculos', upload.single('file'), (req, res) => {
+  const imagePath = req.file.path.replace('public', ''); // Obtiene la ruta relativa de la imagen
   res.json({ imagePath }); // Devuelve la ruta de la imagen al cliente
 });
 
@@ -89,4 +81,16 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 
 
+
+
+
+
+
+
+/*app.get('/', (req, res)=>{
+  const sql = "SELECT * FROM vehiculos";
+  connection.query(sql, (err, data)=>{
+  if(err) return res.json(err);
+})
+});*/
 

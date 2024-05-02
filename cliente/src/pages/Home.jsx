@@ -27,6 +27,7 @@ const Home = () => {
               <Col lg="4" md="4">
                 <div className="find__cars-left  ">
                   <h2 className="textoAnimado">No espere más ¡Visítanos!</h2>
+                 
                 </div>
               </Col>
               <Col lg="8" md="8" sm="12">

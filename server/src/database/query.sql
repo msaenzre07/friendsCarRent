@@ -68,9 +68,11 @@ VALUES ('Hyundai Excel', 'automático', 11.542, 50.00, true);
 VALUES ('Hyundai i10', 'automático', 19.933, 35.00, true);
 VALUES ('Hyundai Elantra GLS', 'automático', 11.611, 65.00, true);
 
-VALUES ('Toyota', 'RAV4', 'automático', 19.605, 45.00, true);
-VALUES ('Toyota', 'Yaris', 'automático', 12.201, 50.00, true);
-VALUES ('Toyota', 'Corolla', 'automático',16.211, 40.00, true);
+VALUES ('Toyota RAV4', '2019','automático', 19.605, 45.00, true);
+VALUES ('Toyota Yaris', '2018','automático', 12.201, 50.00, true);
+VALUES ('Toyota Corolla', '2021','automático',16.211, 40.00, true);
+
+/*Pendiente de corregir*/
 VALUES ('Toyota', 'Land Cruiser', 'automático', 6.465, 35.00, true);
 VALUES ('Toyota', 'Echo', 'automático', 11.504, 50.00, true);
 VALUES ('Toyota', 'Land Cruiser Prado', 'automático', 4.286, 65.00, true);
