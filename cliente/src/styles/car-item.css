@@ -9,6 +9,9 @@
   padding: 20px;
   border-radius: 5px;
   height: 100%;
+
+
+  text-align: center; 
 }
 
 .car__item-info span i {
@@ -22,6 +25,9 @@
   outline: none;
   background: #000d6b;
   padding: 8px 0px;
+
+  display: inline-block;
+  
 }
 
 .car__item-btn a {
@@ -39,8 +45,11 @@
 }
 
 .car__btn-rent {
-  border-radius: 4px 0px 0px 4px;
+  border-radius: 4px;
+ 
 }
+
+
 
 .car__item-content h4 {
   font-size: 1.8rem;
@@ -74,6 +83,7 @@
   .car__item-btn {
     padding: 5px 10px;
     font-size: 0.9rem;
+   
   }
 }
 
@@ -96,5 +106,6 @@
 
   .car__item-btn {
     font-size: 0.8rem;
+   
   }
 }

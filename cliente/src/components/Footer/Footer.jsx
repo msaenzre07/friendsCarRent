@@ -11,13 +11,13 @@ const quickLinks = [
   },
 
   {
-    path: "/Reservar",
-    display: "Reservar",
+    path: "/cars",
+display: "Reservar",
   },
 
   {
-    path: "/contact",
-    display: "Contacto",
+    path: "/contacto",
+  display: "Contáctenos",
   },
 ];
 

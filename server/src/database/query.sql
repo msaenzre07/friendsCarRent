@@ -71,32 +71,31 @@ VALUES ('Hyundai Elantra GLS', 'automático', 11.611, 65.00, true);
 VALUES ('Toyota RAV4', '2019','automático', 19.605, 45.00, true);
 VALUES ('Toyota Yaris', '2018','automático', 12.201, 50.00, true);
 VALUES ('Toyota Corolla', '2021','automático',16.211, 40.00, true);
+VALUES ('Toyota Land Cruiser', '2019','automático', 6.465, 35.00, true);
+VALUES ('Toyota Echo', '2021','automático', 11.504, 50.00, true);
+VALUES ('Toyota Land Cruiser Prado', '2018', 'automático', 4.286, 65.00, true);
+VALUES ('Toyota 4Runner', '2020', 'automático', 14.504, 50.00, true);
+VALUES ('Toyota Fortuner', '2023','automático', 10.060, 40.00, true);
+VALUES ('Toyota Tercel', '2022','automático', 17.922, 65.00, true);
+VALUES ('Toyota HiAce', '2021','automático',23.300, 50.00, true);
+VALUES ('Toyota Tundra', '2022', 'automático',19.000, 45.00, true);
+VALUES ('Toyota Rush', '2019','automático', 16.200, 35.00, true);
+VALUES ('Toyota FJ Cruiser','2021', 'automático', 11.700, 65.00, true);
+
+VALUES ('Mitsubishi Montero','2022','automático', 15.285, 40.00, true);
+VALUES ('Mitsubishi L200', '2021','automático', 10.453, 50.00, true);
+VALUES ('Mitsubishi TLancer', '2023', 'automático', 19.678, 35.00, true);
+
+VALUES ('Honda Civic', '2021','automático', 11.255, 35.00, true);
+VALUES ('Honda CR-V', '2022', 'automático', 19.625, 50.00, true);
+VALUES ('Honda Pilot', '2021', 'automático', 23.112, 45.00, true);
+VALUES ('Honda Accord', '2023', 'automático', 25.456, 40.00, true);
+VALUES ('Honda Odyssey', '2022', 'automático', 23.567, 50.00, true);
 
 /*Pendiente de corregir*/
-VALUES ('Toyota', 'Land Cruiser', 'automático', 6.465, 35.00, true);
-VALUES ('Toyota', 'Echo', 'automático', 11.504, 50.00, true);
-VALUES ('Toyota', 'Land Cruiser Prado', 'automático', 4.286, 65.00, true);
-VALUES ('Toyota', '4Runner', 'automático', 14.504, 50.00, true);
-VALUES ('Toyota', 'Fortuner', 'automático', 10.060, 40.00, true);
-VALUES ('Toyota', 'Tercel', 'automático', 17.922, 65.00, true);
-VALUES ('Toyota', 'HiAce', 'automático',23.300, 50.00, true);
-VALUES ('Toyota', 'Tundra', 'automático',19.000, 45.00, true);
-VALUES ('Toyota', 'Rush', 'automático', 16.200, 35.00, true);
-VALUES ('Toyota', 'FJ Cruiser', 'automático', 11.700, 65.00, true);
-
-VALUES ('Mitsubishi', 'Montero', 'automático', 15.285, 40.00, true);
-VALUES ('Mitsubishi', 'L200', 'automático', 10.453, 50.00, true);
-VALUES ('Mitsubishi', 'TLancer', 'automático', 19.678, 35.00, true);
-
-VALUES ('Honda', 'Civic', 'automático', 11.255, 35.00, true);
-VALUES ('Honda', 'CR-V', 'automático', 19.625, 50.00, true);
-VALUES ('Honda', 'Pilot', 'automático', 23.112, 45.00, true);
-VALUES ('Honda', 'Accord', 'automático', 25.456, 40.00, true);
-VALUES ('Honda', 'Odyssey', 'automático', 23.567, 50.00, true);
-
-VALUES ('Nissan', 'Frontier', 'automático', 22.453, 50.00, true);
-VALUES ('Nissan', 'Pathfinder', 'automático', 20.234, 40.00, true);
-VALUES ('Nissan', 'Sentra', 'automático', 15.678,65.00, true);
+VALUES ('Nissan Frontier', '2023', 'automático', 22.453, 50.00, true);
+VALUES ('Nissan Pathfinder','2021', 'automático', 20.234, 40.00, true);
+VALUES ('Nissan Sentra', '2019', 'automático', 15.678,65.00, true);
 VALUES ('Nissan', 'X-Trail', 'automático', 11.567, 35.00, true);
 VALUES ('Nissan', 'Xterra', 'automático', 26.780, 45.00, true);
 VALUES ('Nissan', 'Navarra', 'automático', 24.456, 65.00, true);

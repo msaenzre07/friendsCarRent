@@ -4,8 +4,7 @@ import carData from "../assets/data/carData";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { useParams } from "react-router-dom";
-import Reservar from "../components/UI/Reservar";
-import Devolver from "../components/UI/Devolver";
+
 
 const CarDetails = () => {
   const { slug } = useParams();
@@ -68,21 +67,7 @@ const CarDetails = () => {
                 </div>
               </div>
             </Col>
-
-            <Col lg="7" className="mt-5">
-              <div className="booking-info mt-5">
-                <h5 className="mb-4 fw-bold"style={{color: '#000d6b'}}>Formulario de Reservación de vehículos</h5>
-                <Reservar />
-              </div>
-            </Col>
-
-            <Col lg="5" className="mt-5">
-              <div className="devolver__info mt-5">
-                <h5 className="mb-4 fw-bold" style={{color: '#000d6b'}}>Formulario devolución de Vehículos</h5>
-                <Devolver />
-              </div>
-            </Col>
-          </Row>
+            </Row>
         </Container>
       </section>
     </Helmet>

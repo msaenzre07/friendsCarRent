@@ -29,7 +29,10 @@ display: "Reservar",
 path: "/DatosUsuarios",
 display: "Usuarios",
 },
-
+{
+path: "/Reservar",
+display: "Información de Reserva",
+},
 {
   path: "/contacto",
   display: "Contáctenos",

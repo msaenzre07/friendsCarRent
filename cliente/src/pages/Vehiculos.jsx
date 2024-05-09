@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Row } from "reactstrap";
+import { Container, Row, Form } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,27 +16,21 @@ function Vehiculos() {
   const [file, setFile] = useState();
   const [id, setId] = useState();
   const [editar, setEditar] = useState(false);
-  const [vehiculosList, setVehiculos] = useState([]); //Lista de Vehiculos-se inicializa una lista vacía
+  const [vehiculosList, setVehiculosList] = useState([]); //Lista de Vehiculos-se inicializa una lista vacía
 
   //CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
   //UseEffect  Realizar la llamada a la API una vez que el componente se monta.
   useEffect(() => {
-    getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
-  }, []); // El segundo parámetro [] indica que se ejecutará solo en la primera renderización
+    //getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
+  }, []); // Se llamará solo después de que el usuario interactúe con el formulario
 
   const getVehiculos = async () => {
     try {
       const response = await axios.get("http://localhost:3001/getVehiculos");
-      setVehiculos(response.data); // Asigna los vehículos obtenidos desde la API
-      //alert("Vehículo registrado con éxito"); // Se mostrará un mensaje cuando la solicitud sea exitosa
-      Swal.fire({
-        icon: "success",
-        title: "Éxito",
-        text: "Vehículos obtenidos con éxito",
-        timer: 1500,
-      });  
+      setVehiculosList(response.data);
+      alert("Vehículo registrado");
     } catch (error) {
-      //console.error("Error al obtener los vehículos:", error);
+      console.error("Error al obtener los vehículos:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -44,6 +38,12 @@ function Vehiculos() {
       });
     }
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getVehiculos(); // Llama a getVehiculos cuando el usuario envía el formulario
+  };
+
 
   //CRUD-Función add Vehiculos
   const createVehiculos = async () => {
@@ -81,7 +81,7 @@ function Vehiculos() {
         });
       }
     } catch (error) {
-      //console.error("Error al agregar el vehículo:", error);
+      console.error("Error al agregar el vehículo:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -219,13 +219,15 @@ function Vehiculos() {
           <Row>
             <div className="container">
               <div className="card text-center">
+              <Form onSubmit={handleSubmit}>
                 <div className="card-header">Gestión de vehículos</div>
                 <div className="card-body">
                   <div className="input-group mb-3">
                     <span className="input-group-text">Marca: </span>
                     <input
-                      type="text"
-                      id="marca"
+                       id="marca"
+                      type="marca"
+                      name="marca"
                       value={marca}
                       onChange={(event) => {
                         setMarca(event.target.value);
@@ -239,8 +241,9 @@ function Vehiculos() {
                   <div className="input-group mb-3">
                     <span className="input-group-text">Modelo: </span>
                     <input
-                      type="number"
-                      id="Modelo"
+                       id="modelo"
+                      type="modelo"
+                      name="modelo"
                       value={modelo}
                       onChange={(event) => {
                         setModelo(event.target.value);
@@ -258,6 +261,8 @@ function Vehiculos() {
                       className="form-select"
                       aria-label="Transmisión"
                       id="transmision"
+                      type="trasmision"
+                      name="transmision"
                       value={transmision}
                       onChange={(event) => {
                         setTransmision(event.target.value);
@@ -273,8 +278,9 @@ function Vehiculos() {
                     <span className="input-group-text">Kilometraje: </span>
 
                     <input
-                      type="number"
                       id="kilometraje"
+                      type="kilometraje"
+                      name="kilometraje"
                       value={kilometraje}
                       onChange={(event) => {
                         setKilometraje(event.target.value);
@@ -291,8 +297,9 @@ function Vehiculos() {
                     <span className="input-group-text">Precio por día: </span>
 
                     <input
-                      type="number"
-                      id="precio por día"
+                      type="precioDia"
+                      id="precioDia"
+                      name="precioDia"
                       value={precioDia}
                       onChange={(event) => {
                         setPrecioDia(event.target.value);
@@ -308,6 +315,7 @@ function Vehiculos() {
                   <div className="input-group mb-3">
                     <input
                       type="file"
+                      name="file"
                       onChange={(event) => setFile(event.target.files[0])}
                       className="form-control"
                       id="inputGroupFile02"
@@ -324,12 +332,14 @@ function Vehiculos() {
                     <div>
                       <button
                         className="btn btn-warning m-2"
+                        type="submit"
                         onClick={updateVehiculos}
                       >
                         Actualizar
                       </button>
                       <button
                         className="btn btn-info m-2"
+                        type="submit"
                         onClick={limpiarCampos}
                       >
                         Cancelar
@@ -338,12 +348,15 @@ function Vehiculos() {
                   ) : (
                     <button
                       className="btn btn-success"
+                      type="submit"
                       onClick={createVehiculos}
                     >
                       Registrar
                     </button>
                   )}
                 </div>
+              </Form>
+
               </div>
 
               <table className="table table-striped">
@@ -407,6 +420,7 @@ function Vehiculos() {
                   })}
                 </tbody>
               </table>
+          
             </div>
           </Row>
         </Container>
