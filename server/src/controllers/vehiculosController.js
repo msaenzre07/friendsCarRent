@@ -1,4 +1,4 @@
-const Vehiculo= require('../models/Vehiculo');  // Importa el modelo de Vehículo
+const Vehiculo= require('../models/VehiculoModel.js');  // Importa el modelo de Vehículo
 const connection = require('../database/db.js');
 const bodyParser = require('body-parser');
 const express = require("express");
