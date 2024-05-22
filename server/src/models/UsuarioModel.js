@@ -10,4 +10,4 @@ const UsuarioSchema = new mongoose.Schema({
     cedula: String
 });
 
-module.exports = mongoose.model('Usuario', UsuarioSchema);
+module.exports = mongoose.model('Usuarios', UsuarioSchema);

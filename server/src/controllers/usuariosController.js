@@ -2,9 +2,6 @@ const User = require('../models/UsuarioModel');
 const bcrypt = require('bcrypt');
 
 
-const { register} = require("./vehiculosController");
-
-
 require('dotenv').config();
 
 const register = async (req, res) => {
