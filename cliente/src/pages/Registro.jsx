@@ -7,26 +7,43 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/login.css";
 import registroImg from "../assets/all-images/registro.jpg";
+import swal from 'sweetalert';
 
 const Registro = () => {
-  const [nombre, setNombre] = useState();
-  const [correo, setCorreo] = useState();
-  const [contrasena, setContrasena] = useState();
-  const [repetirContrasena, setRepetirContrasena] = useState();
+  const [nombreCompleto, setNombre] = useState("");
+  const [email, setCorreo] = useState("");
+  const [password, setContrasena] = useState("");
+  const [repetirContrasena, setRepetirContrasena] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:3001/registro", {
-        nombre,
-        correo,
-        contrasena
-      })
-      .then((res) => {
-        navigate("/login");
-      })
-      .catch((err) => console.log(err));
+  const mostrarAlertaSuccess = () => {
+    swal({
+      title: "Su registro con éxito",
+      icon: "success",
+      button: "Aceptar"
+    });
+  };
+
+  const mostrarError = (message) => {
+    swal({
+      title: "Error",
+      text: message,
+      icon: "warning",
+      button: "Aceptar"
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/registro', { nombreCompleto, email, password });
+      console.log(response.data);
+      mostrarAlertaSuccess();
+      navigate("/DatosUsuarios");
+    } catch (error) {
+      console.error(error.response.data);
+      mostrarError(error.response.data.message);
+    }
   };
 
   return (
@@ -65,7 +82,7 @@ const Registro = () => {
                               ></i>
                               <div className="form-outline flex-fill mb-0">
                                 <input
-                                onchange ={(event)=> setNombre(event.target.value)}
+                                  onChange={(event) => setNombre(event.target.value)}
                                   type="text"
                                   id="nombre"
                                   className="form-control"
@@ -92,7 +109,7 @@ const Registro = () => {
                               ></i>
                               <div className="form-outline flex-fill mb-0">
                                 <input
-                                  onchange={(event) =>
+                                  onChange={(event) =>
                                     setCorreo(event.target.value)
                                   }
                                   type="email"
@@ -121,7 +138,7 @@ const Registro = () => {
                               ></i>
                               <div className="form-outline flex-fill mb-0">
                                 <input
-                                  onchange={(event) =>
+                                  onChange={(event) =>
                                     setContrasena(event.target.value)
                                   }
                                   type="password"
@@ -150,7 +167,7 @@ const Registro = () => {
                               ></i>
                               <div className="form-outline flex-fill mb-0">
                                 <input
-                                  onchange={(event) =>
+                                  onChange={(event) =>
                                     setRepetirContrasena(event.target.value)
                                   }
                                   type="password"
@@ -169,7 +186,7 @@ const Registro = () => {
                             <div className="form-check d-flex justify-content-start align-items-center mb-1">
                               <label
                                 className="form-check-label"
-                                for="form2Example3"
+                                htmlFor="form2Example3"
                               >
                                 Al registrarte, aceptas nuestras Condiciones de uso de Política de privacidad.
                                 <a href="#!"></a>
@@ -181,7 +198,12 @@ const Registro = () => {
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
                               style={{ padding: "5px 10px" }}
                             >
-                              <Link to="/DatosUsuarios" className="btn secondary_btn">Regristar</Link>
+                              <Button
+                                type="submit"
+                                className="btn secondary_btn bubbly_button"
+                              >
+                                Registrate
+                              </Button>
                             </div>
                           </Form>
                           <p>

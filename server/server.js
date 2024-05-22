@@ -2,6 +2,8 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+const { register} = require("./src/controllers/usuariosController");
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.post('/register', register);
+app.post('/registro', register);
 
 
 app.listen(port, () => {
@@ -51,13 +53,4 @@ app.listen(port, () => {
 
 
 
-
-
-
-/*app.get('/', (req, res)=>{
-  const sql = "SELECT * FROM vehiculos";
-  connection.query(sql, (err, data)=>{
-  if(err) return res.json(err);
-})
-});*/
 
