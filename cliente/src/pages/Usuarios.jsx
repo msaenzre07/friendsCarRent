@@ -13,11 +13,9 @@ const DatosUsuarios= () => {
 
 // variables que add valores en los campos
 const [nombre, setNombre] = useState("");
-  const [numCedula, setNumCedula] = useState("");
-  const [edad, setEdad] = useState("");
-  const [correo, setCorreo] = useState("");
-
-
+const [numCedula, setNumCedula] = useState("");
+const [edad, setEdad] = useState("");
+const [correo, setCorreo] = useState("");
 
 
 //Add datos Usuarios

@@ -21,8 +21,7 @@ const Registro = () => {
       .post("http://localhost:3001/registro", {
         nombre,
         correo,
-        contrasena,
-        repetirContrasena
+        contrasena
       })
       .then((res) => {
         navigate("/login");
@@ -172,8 +171,7 @@ const Registro = () => {
                                 className="form-check-label"
                                 for="form2Example3"
                               >
-                                Al registrarte, aceptas nuestras Condiciones de
-                                uso de Política de privacidad.
+                                Al registrarte, aceptas nuestras Condiciones de uso de Política de privacidad.
                                 <a href="#!"></a>
                               </label>
                             </div>
@@ -183,12 +181,7 @@ const Registro = () => {
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
                               style={{ padding: "5px 10px" }}
                             >
-                              <Button
-                                type="submit"
-                                className="btn secondary_btn bubbly_button"
-                              >
-                                Registrate
-                              </Button>
+                              <Link to="/DatosUsuarios" className="btn secondary_btn">Regristar</Link>
                             </div>
                           </Form>
                           <p>

@@ -1,22 +1,36 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-const db = require("../database/database.js");
+const User = require('../models/UsuarioModel');
+const bcrypt = require('bcrypt');
 
-router.post("/registro", async (req, res) => {
+
+const { register} = require("./vehiculosController");
+
+
+require('dotenv').config();
+
+const register = async (req, res) => {
+  const { nombreCompleto, email, password } = req.body;
+
   try {
-    const { nombre, correo, contrasena, repetirContrasena } = req.body;
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ error: 'El correo electrónico ya fue registrado' });
+      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({
+          nombreCompleto,
+          email,
+          password: hashedPassword,
+          phone: "00000000",
+          nacionalidad: "CostaRica",
+          cedula: "200000000",
+          fechanacimiento: "2000-06-24T00:00:00.000+00:00"
 
-    const sql =
-      "INSERT INTO create (nombre, correo, contrasena, repetirContrasena) VALUES (?, ?, ?, ?)";
-    await db.query(sql, [nombre, correo, contrasena, repetirContrasena]);
-    res.status(200).json({ message: "Registro exitoso" });
-  } catch (err) {
-    console.error("Error al registrarse: ", err);
-    res.status(500).json({ message: "Error al registrarse", error: err });
+      });
+      await newUser.save();
+      res.status(201).json({ message: 'Usuario registrado correctamente' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al registrar el usuario' });
   }
-});
-
-//Pendiente código del Login
-
-module.exports = router;
+}
+module.exports = { register};
