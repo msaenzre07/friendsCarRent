@@ -75,7 +75,7 @@ const Footer = () => {
 
               <p className="office__info">
                 <i className="ri-timer-line" style={{ color: "#D2691E" }}></i>
-                Horario de Oficina: 09am - 05pm
+                Horario de Oficina: 09:00am - 05:00pm
               </p>
             </div>
           </Col>

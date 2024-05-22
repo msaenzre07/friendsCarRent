@@ -156,7 +156,7 @@ const Reservar = () => {
                                 </label>
                                 <input
                                   type="date"
-                                  placeholder=""
+                                
                                   name="Fecha Devolución"
                                   value={formData.fechaDevolucion}
                                   onChange={handleInputChange}
@@ -199,7 +199,7 @@ const Reservar = () => {
                                     <input
                                       type="text"
                                       id="Lugar"
-                                      placeholder=""
+                                    
                                       name="Lugar"
                                       value={formData.lugar}
                                       onChange={handleInputChange}
@@ -224,7 +224,7 @@ const Reservar = () => {
                               </div>
                               <div className="devolver text-center mt-5">
                                 <button
-                                  type="button"
+                                  type="submit"
                                   onClick={handleSubmit}
                                   className="btn btn-light btn-lg"
                                   style={{ color: "#fff" }}

@@ -1,44 +1,3 @@
-@media (min-width: 1025px) {
-  .h-custom {
-  height: 100vh !important;
-  }
-  }
-  .card-registration .select-input.form-control[readonly]:not([disabled]) {
-  font-size: 1rem;
-  line-height: 2.15;
-  padding-left: .75em;
-  padding-right: .75em;
-  }
-  .card-registration .select-arrow {
-  top: 13px;
-  }
-  
-
-  
-  .bg-indigo {
-      background-image: url("../assets/all-images/devolver.jpg");
-  
-  background-size: cover;
-  background-position: center;
-
-
-  }
-  @media (min-width: 992px) {
-  .card-registration-2 .bg-indigo {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  }
-  }
-  @media (max-width: 991px) {
-  .card-registration-2 .bg-indigo {
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  }
-  }
-
-
-
-/*-----*/
 .booking__form {
   width: 47.5%;
 }
@@ -85,3 +44,48 @@
     font-size: 0.8rem;
   }
 }
+
+
+/*-----*/
+
+
+@media (min-width: 1025px) {
+  .h-custom {
+  height: 100vh !important;
+  }
+  }
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: .75em;
+  padding-right: .75em;
+  }
+  .card-registration .select-arrow {
+  top: 13px;
+  }
+  
+
+  
+  .bg-indigo {
+      background-image: url("../assets/all-images/devolver.jpg");
+  
+  background-size: cover;
+  background-position: center;
+
+
+  }
+  @media (min-width: 992px) {
+  .card-registration-2 .bg-indigo {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  }
+  }
+  @media (max-width: 991px) {
+  .card-registration-2 .bg-indigo {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  }
+  }
+
+
+
