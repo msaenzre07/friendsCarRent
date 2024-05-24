@@ -93,96 +93,96 @@ VALUES ('Honda Accord', '2023', 'automático', 25.456, 40.00,imagen);
 VALUES ('Honda Odyssey', '2022', 'automático', 23.567, 50.00, imagen);
 
 
-VALUES ('Nissan Frontier', '2023', 'automático', 22.453, 50.00, true);
-VALUES ('Nissan Pathfinder','2021', 'automático', 20.234, 40.00, true);
-VALUES ('Nissan Sentra', '2019', 'automático', 15.678,65.00, true);
-VALUES ('Nissan X-Trail', 'automático', 11.567, 35.00, true);
-VALUES ('Nissan Xterra', 'automático', 26.780, 45.00, true);
-VALUES ('Nissan Navarra', 'automático', 24.456, 65.00, true);
-VALUES ('Nissan Qashqai', 'automático', 27.897, 50.00, true);
-VALUES ('Nissan Tiida', 'automático', 22.245, 40.00, true);
+VALUES ('Nissan Frontier', '2023', 'automático', 22.453, 50.00, imagen);
+VALUES ('Nissan Pathfinder','2021', 'automático', 20.234, 40.00, imagen);
+VALUES ('Nissan Sentra', '2019', 'automático', 15.678,65.00, imagen);
+VALUES ('Nissan X-Trail', 'automático', 11.567, 35.00, imagen);
+VALUES ('Nissan Xterra', 'automático', 26.780, 45.00,imagen);
+VALUES ('Nissan Navarra', 'automático', 24.456, 65.00, imagen);
+VALUES ('Nissan Qashqai', 'automático', 27.897, 50.00, imagen);
+VALUES ('Nissan Tiida', 'automático', 22.245, 40.00, imagen);
 
-VALUES ('Kia Sportage', 'automático', 21.278, 35.00, true);
-VALUES ('Kia Sorento', 'automático', 19.345, 50.00, true);
-VALUES ('Kia Rio', 'automático', 15.245, 65.00, true);
+VALUES ('Kia Sportage', 'automático', 21.278, 35.00, imagen);
+VALUES ('Kia Sorento', 'automático', 19.345, 50.00, imagen);
+VALUES ('Kia Rio', 'automático', 15.245, 65.00, imagen);
 VALUES ('Kia Picanto', 'automático', 25.567, 35.00, true);
-VALUES ('Kia Soul', 'automático', 17.324, 50.00, true);
-VALUES ('Kia Carnival', 'automático', 25.289, 40.00, true);
+VALUES ('Kia Soul', 'automático', 17.324, 50.00, imagen);
+VALUES ('Kia Carnival', 'automático', 25.289, 40.00, imagen);
 
-VALUES ('Jeep Wrangler', 'automático', 31.672, 65.00, true);
-VALUES ('Jeep Grand Cherokee', 'automático', 23.678, 35.00, true);
-VALUES ('Suzuki Grand Vitara', 'automático', 22.256, 50.00, true);
+VALUES ('Jeep Wrangler', 'automático', 31.672, 65.00, imagen);
+VALUES ('Jeep Grand Cherokee', 'automático', 23.678, 35.00, imagen);
+VALUES ('Suzuki Grand Vitara', 'automático', 22.256, 50.00, imagen);
 
-VALUES ('Suzuki SideKick', 'automático', 17.345, 50.00, true);
-VALUES ('Suzuki Vitara', 'automático', 16.345, 65.00, true);
-VALUES ('Suzuki Samurai', 'automático', 18.783, 40.00, true);
-VALUES ('Suzuki SX4', 'automático', 18.345, 40.00, true);
-VALUES ('Suzuki Aerio', 'automático', 12.784, 50.00, true);
-VALUES ('Suzuki S-Presso', 'automático', 18.268, 45.00, true);
+VALUES ('Suzuki SideKick', 'automático', 17.345, 50.00, imagen);
+VALUES ('Suzuki Vitara', 'automático', 16.345, 65.00, imagen);
+VALUES ('Suzuki Samurai', 'automático', 18.783, 40.00, imagen);
+VALUES ('Suzuki SX4', 'automático', 18.345, 40.00, imagen);
+VALUES ('Suzuki Aerio', 'automático', 12.784, 50.00,imagen);
+VALUES ('Suzuki S-Presso', 'automático', 18.268, 45.00, imagen);
 
-VALUES ('Chevrolet Tracker', 'automático', 15.327, 35.00, true);
-VALUES ('Chevrolet Spark', 'automático', 19.567, 35.00, true);
-VALUES ('Chevrolet Tahoe', 'automático', 12.345, 65.00, true);
-VALUES ('Chevrolet Aveo', 'automático', 18.287, 50.00, true);
-VALUES ('Chevrolet Camaro', 'automático', 32.345, 40.00, true);
-VALUES ('Chevrolet Silverado', 'automático', 25.168, 35.00, true);
-VALUES ('Chevrolet S10', 'automático', 22.345, 50.00, true);
-VALUES ('Chevrolet Trax', 'automático', 23.124, 40.00, true);
+VALUES ('Chevrolet Tracker', 'automático', 15.327, 35.00, imagen);
+VALUES ('Chevrolet Spark', 'automático', 19.567, 35.00, imagen);
+VALUES ('Chevrolet Tahoe', 'automático', 12.345, 65.00, imagen);
+VALUES ('Chevrolet Aveo', 'automático', 18.287, 50.00, imagen);
+VALUES ('Chevrolet Camaro', 'automático', 32.345, 40.00, imagen);
+VALUES ('Chevrolet Silverado', 'automático', 25.168, 35.00, imagen);
+VALUES ('Chevrolet S10', 'automático', 22.345, 50.00, imagen);
+VALUES ('Chevrolet Trax', 'automático', 23.124, 40.00,imagen);
 
-VALUES ('Daihatsu Terios', 'automático', 15.238, 40.00, true);
-VALUES ('Daihatsu Sirion', 'automático', 17.381, 50.00, true);
+VALUES ('Daihatsu Terios', 'automático', 15.238, 40.00, imagen);
+VALUES ('Daihatsu Sirion', 'automático', 17.381, 50.00,imagen);
 
-VALUES ('Land Rover Range Rover', 'automático', 23.786, 65.00, true);
-VALUES ('Land Rover Defender', 'automático', 22.894, 35.00, true);
-VALUES ('Land Rover Range Rover Sport', 'automático', 21.789, 45.00, true);
-VALUES ('Land Rover Discovery Sport', 'automático', 23.789, 65.00, true);
-VALUES ('Land Rover Range Rover Evoque', 'automático', 25.678, 50.00, true);
+VALUES ('Land Rover Range Rover', 'automático', 23.786, 65.00, imagen);
+VALUES ('Land Rover Defender', 'automático', 22.894, 35.00, imagen);
+VALUES ('Land Rover Range Rover Sport', 'automático', 21.789, 45.00, imagen);
+VALUES ('Land Rover Discovery Sport', 'automático', 23.789, 65.00, imagen);
+VALUES ('Land Rover Range Rover Evoque', 'automático', 25.678, 50.00, imagen);
 
-VALUES ('Ford Explorer', 'automático', 33.234, 40.00, true);
-VALUES ('Ford Ranger', 'automático', 32.278, 35.00, true);
-VALUES ('Ford Edge', 'automático', 28.780, 35.00, true);
-VALUES ('Ford Escape', 'automático', 18.897, 50.00, true);
-VALUES ('Ford F-150', 'automático', 25.678, 65.00, true);
-VALUES ('Ford Mustang', 'automático', 21.493, 65.00, true);
+VALUES ('Ford Explorer', 'automático', 33.234, 40.00, imagen);
+VALUES ('Ford Ranger', 'automático', 32.278, 35.00,imagen);
+VALUES ('Ford Edge', 'automático', 28.780, 35.00, imagen);
+VALUES ('Ford Escape', 'automático', 18.897, 50.00, imagen);
+VALUES ('Ford F-150', 'automático', 25.678, 65.00, imagen);
+VALUES ('Ford Mustang', 'automático', 21.493, 65.00, imagen);
 
-VALUES ('Mini Cooper', 'automático', 19.289, 40.00, true);
+VALUES ('Mini Cooper', 'automático', 19.289, 40.00, imagen);
 
-VALUES ('BMW X5', 'automático', 22.634, 40.00, true);
-VALUES ('BMW 325', 'automático', 21.694, 35.00, true);
-VALUES ('BMW 320', 'automático', 19.289, 65.00, true);
-VALUES ('BMW X3', 'automático', 18.783, 50.00, true);
-VALUES ('BMW 323', 'automático', 23.518, 65.00, true);
+VALUES ('BMW X5', 'automático', 22.634, 40.00, imagen);
+VALUES ('BMW 325', 'automático', 21.694, 35.00, imagen);
+VALUES ('BMW 320', 'automático', 19.289, 65.00, imagen);
+VALUES ('BMW X3', 'automático', 18.783, 50.00, imagen);
+VALUES ('BMW 323', 'automático', 23.518, 65.00, imagen);
 
-VALUES ('Renault Duster', 'automático', 19.490, 45.00, true);
-VALUES ('Renault Megane', 'automático', 32.634, 50.00, true);
+VALUES ('Renault Duster', 'automático', 19.490, 45.00,imagen);
+VALUES ('Renault Megane', 'automático', 32.634, 50.00, imagen);
 
-VALUES ('Mazda CX-7', 'automático', 23.678, 65.00, true);
-VALUES ('Mazda 3', 'automático', 21.690, 50.00, true);
-VALUES ('Mazda BT-50', 'automático', 22.689, 45.00, true);
+VALUES ('Mazda CX-7', 'automático', 23.678, 65.00, imagen);
+VALUES ('Mazda 3', 'automático', 21.690, 50.00, imagen);
+VALUES ('Mazda BT-50', 'automático', 22.689, 45.00, imagen);
 
-VALUES ('Mercedes Benz ML', 'automático', 22.690, 45.00, true);
-VALUES ('Mercedes Benz 190', 'automático', 32.289, 50.00, true);
+VALUES ('Mercedes Benz ML', 'automático', 22.690, 45.00,  imagen);
+VALUES ('Mercedes Benz 190', 'automático', 32.289, 50.00, imagen);
 
-VALUES ('Isuzu Rodeo', 'automático', 22.567, 35.00, true);
-VALUES ('Isuzu Trooper', 'automático', 22.389, 50.00, true);
-VALUES ('Isuzu KB', 'automático', 21.298, 50.00, true);
+VALUES ('Isuzu Rodeo', 'automático', 22.567, 35.00, imagen);
+VALUES ('Isuzu Trooper', 'automático', 22.389, 50.00, imagen);
+VALUES ('Isuzu KB', 'automático', 21.298, 50.00, imagen);
 
-VALUES ('Fiat 500', 'automático', 17.909, 40.00, true);
+VALUES ('Fiat 500', 'automático', 17.909, 40.00, imagen);
 
-VALUES ('Volkswagen Jetta', 'automático', 27.489, 35.00, true);
-VALUES ('Volkswagen Amarok', 'automático', 25.780, 50.00, true);
-VALUES ('Volkswagen Tiguan', 'automático', 25.286 65.00, true);
+VALUES ('Volkswagen Jetta', 'automático', 27.489, 35.00,imagen);
+VALUES ('Volkswagen Amarok', 'automático', 25.780, 50.00, imagen);
+VALUES ('Volkswagen Tiguan', 'automático', 25.286 65.00, imagen);
 
-VALUES ('Peugeot 206', 'automático', 19.295, 35.00, true);
-VALUES ('Peugeot 307', 'automático', 16.345, 40.00, true);
+VALUES ('Peugeot 206', 'automático', 19.295, 35.00, imagen);
+VALUES ('Peugeot 307', 'automático', 16.345, 40.00, imagen);
 
-VALUES ('Subaru Impreza WRX', 'automático', 22.678, 45.00, true);
+VALUES ('Subaru Impreza WRX', 'automático', 22.678, 45.00, imagen);
 
-VALUES ('Hummer H3', 'automático', 18.743, 45.00, true);
+VALUES ('Hummer H3', 'automático', 18.743, 45.00, imagen);
 
-VALUES ('Lexus NX 300h', 'automático', 15.734, 50.00, true);
+VALUES ('Lexus NX 300h', 'automático', 15.734, 50.00, imagen);
 
-VALUES ('Audi Q5', 'automático', 17.634, 65.00, true);
+VALUES ('Audi Q5', 'automático', 17.634, 65.00, imagen);
 
 
 

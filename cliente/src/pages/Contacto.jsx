@@ -78,7 +78,7 @@ const Contacto = () => {
                   Correo Electrónico:
                   <p className="section__description mb-0">
                     {" "}
-                    hernanvalerio7190@gmail.com
+                    friendsCarRent2024@outlook.com
                   </p>
                 </div>
 

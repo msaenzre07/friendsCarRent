@@ -41,7 +41,16 @@ const HeroSlider = () => {
           </div>
         </Container>
       </div>
+
+      <div className="slider__item slider__item-04 mt0">
+        <Container>
+          <div className="slider__content ">        
+          <h1 className="display-4 text-uppercase text-center mb-5">Bienvenidos a Friend's Car Rent</h1>
+          </div>
+        </Container>
+      </div>
     </Slider>
+    
  );
 };
     
