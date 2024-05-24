@@ -25,10 +25,10 @@ const Contacto = () => {
 
               <Form>
                 <FormGroup className="contact__form">
-                  <Input placeholder="Nombre completo" type="text" />
+                  <Input placeholder="Nombre completo" type="text" name="Nombrecompleto" />
                 </FormGroup>
                 <FormGroup className="contact__form">
-                  <Input placeholder="Correo electrónico" type="email" />
+                  <Input placeholder="Correo electrónico" type="email" name= "correoelectronico" />
                 </FormGroup>
                 <FormGroup className="contact__form">
                   <div class="col-md-12 pe-6">
@@ -36,6 +36,7 @@ const Contacto = () => {
                       rows="5"
                       placeholder="Mensaje"
                       className="textarea"
+                      name="Mensaje"
                     ></textarea>
                   </div>
                 </FormGroup>
