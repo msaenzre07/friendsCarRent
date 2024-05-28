@@ -2,7 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const { register} = require("./src/controllers/usuariosController");
+const { register, updateUser, getUserById } = require('./src/controllers/usuariosController');
 
 
 const app = express();
@@ -25,8 +25,9 @@ mongoose.connect(mongoString, {
 app.use(cors());
 app.use(express.json());
 
-
 app.post('/registro', register);
+app.put('/usuarios', updateUser);
+app.get('/usuarios/:id', getUserById);
 
 
 app.listen(port, () => {

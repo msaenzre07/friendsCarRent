@@ -7,7 +7,11 @@ const UsuarioSchema = new mongoose.Schema({
     phone: String,
     password: String,
     nacionalidad: String,
-    cedula: String
+    tipoIdentificacion: String,
+    cedula: String,
+    archivoLicencia: String  // Nuevo campo para el archivo de licencia
 });
 
-module.exports = mongoose.model('Usuarios', UsuarioSchema);
+const User = mongoose.model('User', UsuarioSchema);
+
+module.exports = User;

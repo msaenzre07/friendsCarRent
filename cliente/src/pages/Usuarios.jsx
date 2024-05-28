@@ -1,43 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
-import { Container, Row, Form } from "reactstrap";
+import { Container, Row, Form, Button } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
+import Swal from 'sweetalert2';
 import "../styles/usuarios.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Swal from 'sweetalert2';
 
 const DatosUsuarios = () => {
-  // Variables de estado para los campos del formulario
-  const [nombre, setNombre] = useState("");
-  const [tipoIdentificacion, setTipoIdentificacion] = useState("Cédula Nacional");
-  const [numCedula, setNumCedula] = useState("");
-  const [edad, setEdad] = useState("");
-  const [correo, setCorreo] = useState("");
+  const { id } = useParams(); // Obtener el ID de la URL
+  const [nombreCompleto, setNombreCompleto] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [nacionalidad, setNacionalidad] = useState("Cedula");
+  const [tipoIdentificacion, setTipoIdentificacion] = useState("");
+  const [cedula, setCedula] = useState("");
+  const [fechanacimiento, setFechaNacimiento] = useState("");
+  const [archivoLicencia, setArchivoLicencia] = useState(null);
 
-  // Función para agregar datos de usuarios
-  const addUsuarios = () => {
-    axios.post("http://localhost:3001/api/createUser", {
-      nombre: nombre,
-      tipoIdentificacion: tipoIdentificacion,
-      numCedula: numCedula,
-      edad: edad,
-      correo: correo,
-    })
-    .then(() => {
-      Swal.fire({
-        title: "<strong>Registro exitoso!!!</strong>",
-        html: "<i>La información <strong> " + nombre + " </strong>fue registrada con exito!!!</i>",
-        icon: "success",
-        timer: 3000,
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/usuarios/${id}`);
+        const user = response.data;
+        //setNombreCompleto(user.nombreCompleto);
+      // setEmail(user.email);
+       // setPhone(user.phone);
+        setNacionalidad("");
+       // setTipoIdentificacion(user.tipoIdentificacion);
+       // setCedula(user.cedula);
+        //setFechaNacimiento(user.fechanacimiento);
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al cargar los datos del usuario',
+        });
+      }
+    };
+
+    fetchUserData();
+  }, [id]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('id', id);
+      //formData.append('phone', phone);
+      formData.append('nacionalidad', nacionalidad);
+      formData.append('tipoIdentificacion', tipoIdentificacion);
+      formData.append('cedula', cedula);
+      formData.append('fechanacimiento', fechanacimiento);
+      formData.append('archivoLicencia', archivoLicencia);
+
+      const response = await axios.put(`http://localhost:3000/usuarios`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
-    }).catch((error) => {
+
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response ? error.response.data.message : "Intente más tarde",
+        title: 'Usuario actualizado correctamente',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false,
       });
-    });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al actualizar el usuario',
+      });
+    }
   };
 
   return (
@@ -46,77 +84,76 @@ const DatosUsuarios = () => {
       <section className="background-section">
         <Container>
           <Row className="justify-content-center">
-            <div className="col-md-8 p-5 ">
-              <h2>Digite la información solicitada</h2>
-              <Form className="row g-3 detalleForm mt-4" onSubmit={(e) => { e.preventDefault(); addUsuarios(); }}>
+            <div className="col-md-8 p-5">
+              <h2>Actualice la información solicitada</h2>
+              <Form className="row g-3 detalleForm mt-4" onSubmit={handleSubmit}>
+          
+            
                 <div className="col-md-6">
-                  <label htmlFor="nombre" className="form-label">Nombre completo:</label>
+                  <label htmlFor="phone" className="form-label">Teléfono:</label>
                   <input
                     type="text"
-                    id="nombre"
-                    value={nombre}
-                    onChange={(event) => setNombre(event.target.value)}
+                    id="phone"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
                     className="form-control"
-                    required
                   />
                 </div>
                 <div className="col-md-6">
-                  <label htmlFor="tipoIdentificacion" className="form-label">Tipo de identificación:</label>
+                  <label htmlFor="tipoIdentificacion" className="form-label">Tipo de Identificación:</label>
                   <select
                     id="tipoIdentificacion"
                     value={tipoIdentificacion}
                     onChange={(event) => setTipoIdentificacion(event.target.value)}
-                    className="form-select"
-                    required
+                    className="form-control"
                   >
-                    <option value="Cédula Nacional">Cédula Nacional</option>
+                    <option value="Cedula">Cédula</option>
                     <option value="Pasaporte">Pasaporte</option>
                   </select>
                 </div>
+
                 <div className="col-md-6">
-                  <label htmlFor="numCedula" className="form-label">Número de cédula o pasaporte:</label>
+                  <label htmlFor="nacionalidad" className="form-label">Nacionalidad:</label>
                   <input
                     type="text"
-                    id="numCedula"
-                    value={numCedula}
-                    onChange={(event) => setNumCedula(event.target.value)}
+                    id="nacionalidad"
+                    value={nacionalidad}
+                    onChange={(event) => setNacionalidad(event.target.value)}
                     className="form-control"
-                    required
                   />
                 </div>
                 <div className="col-md-6">
-                  <label htmlFor="edad" className="form-label">Edad:</label>
+                  <label htmlFor="cedula" className="form-label">Cédula:</label>
                   <input
-                    type="number"
-                    id="edad"
-                    value={edad}
-                    onChange={(event) => setEdad(event.target.value)}
+                    type="text"
+                    id="cedula"
+                    value={cedula}
+                    onChange={(event) => setCedula(event.target.value)}
                     className="form-control"
-                    required
                   />
                 </div>
                 <div className="col-md-6">
-                  <label htmlFor="correo" className="form-label">Correo electrónico:</label>
+                  <label htmlFor="fechanacimiento" className="form-label">Fecha de Nacimiento:</label>
                   <input
-                    type="email"
-                    id="correo"
-                    value={correo}
-                    onChange={(event) => setCorreo(event.target.value)}
+                    type="date"
+                    id="fechanacimiento"
+                    value={fechanacimiento.split('T')[0]}
+                    onChange={(event) => setFechaNacimiento(event.target.value)}
                     className="form-control"
-                    required
                   />
                 </div>
-                <div className="titulo-imagen">
-                  <div className="car-titulo">
-                    Adjuntar foto de la "Licencia de conducir", "Cédula de Identidad" o "Pasaporte":
-                  </div>
-                  <div className="input-group mb-3">
-                    <input type="file" className="form-control" id="inputGroupFile02" />
-                    <label className="input-group-text" htmlFor="inputGroupFile02">Upload</label>
-                  </div>
+                <div className="col-md-6">
+                  <label htmlFor="archivoLicencia" className="form-label">Archivo de Licencia:</label>
+                  <input
+                    type="file"
+                    id="archivoLicencia"
+                    onChange={(event) => setArchivoLicencia(event.target.files[0])}
+                    className="form-control"
+                    accept=".pdf,.doc,.docx"
+                  />
                 </div>
                 <div className="mb-3" style={{ textAlign: 'center' }}>
-                  <button type="submit" className="btn btn-primary mt-3" style={{ fontSize: '1.1em', padding: '8px 16px' }}>Enviar</button>
+                  <Button type="submit" className="btn btn-primary mt-3" style={{ fontSize: '1.1em', padding: '8px 16px' }}>Actualizar</Button>
                 </div>
               </Form>
             </div>

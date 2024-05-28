@@ -39,7 +39,7 @@ const Registro = () => {
       const response = await axios.post('http://localhost:3000/registro', { nombreCompleto, email, password });
       console.log(response.data);
       mostrarAlertaSuccess();
-      navigate("/DatosUsuarios");
+      navigate(`/datosUsuarios/${response.data.userId}`);
     } catch (error) {
       console.error(error.response.data);
       mostrarError(error.response.data.message);
