@@ -70,7 +70,7 @@ const Footer = () => {
 
               <p className="office__info">
                 <i className="ri-mail-check-line" style={{ color: "#D2691E" }}></i>
-                Correo: hernanvalerio7190@gmail.com
+                Correo: friendsCarRent2024@outlook.com
               </p>
 
               <p className="office__info">
