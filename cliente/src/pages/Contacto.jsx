@@ -66,7 +66,7 @@ export const Contacto = () => {
 
   return (
     <Helmet title="Contact">
-      <CommonSection title="Contactános Ahora" />
+      <CommonSection title="Contáctanos Ahora" />
       <section>
         <Container>
           <Row>

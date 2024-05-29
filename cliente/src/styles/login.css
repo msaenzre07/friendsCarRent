@@ -14,22 +14,17 @@
   background-image: url("../assets/all-images/detalleuser.jpg");
   background-size: cover;
   background-position: center;
-  /*height: 100vh;
+  height: 100vh;
   display: flex;
-  align-items: center;*/
-}
-
-.recaptcha {
-  margin-bottom: 10px; /* Ajusta el valor según sea necesario */
+  align-items: center;
 }
 .auth_btn {
   /*background-color: #000d6b;
   width: 100%;
   color: #fff !important;*/
 
-  margin-top: 20px; /* Ajusta el valor según sea necesario */
   font-size: 14px;
-
+  padding: 10px 20px;
   border: none;
   outline: none;
   border-radius: 5px;
@@ -63,4 +58,4 @@
 	margin: auto;
 	padding: 40px;
 
- }
+}

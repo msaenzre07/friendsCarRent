@@ -11,8 +11,7 @@ CREATE TABLE Usuarios(
 id INT AUTO_INCREMENT PRIMARY KEY,
     correo VARCHAR(255) NOT NULL UNIQUE,
    contrasena VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
 );
 
 -- to show all tables
@@ -208,9 +207,12 @@ CREATE TABLE Reservar (
     fechaFinal DATE,
     id_vehiculo INT,
     FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id),
-     correo_usuario VARCHAR(255), 
-    FOREIGN KEY (correo_usuario) REFERENCES Registro(correo)
+    correo_usuario VARCHAR(255),
+    FOREIGN KEY (correo_usuario) REFERENCES Registro(correo),
+    id_usuario INT,
+    FOREIGN KEY (id_usuario) REFERENCES Datos_Usuarios(id)
 );
+
 
 SELECT * FROM Reservar;
 
@@ -225,12 +227,3 @@ CREATE TABLE Devolver (
 
 SELECT * FROM Devolver;
 
-CREATE TABLE Contacto (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    correo VARCHAR(255),
-    mensaje TEXT,
-    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-SELECT * FROM Contacto;

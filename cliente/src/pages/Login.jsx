@@ -1,7 +1,6 @@
-import React, {useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import React, { useState } from "react";
 
-import { Container, Row, form, Button } from "reactstrap";
+import { Container, Row, Form, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
@@ -10,38 +9,8 @@ import "../styles/login.css";
 import loginImg from "../assets/all-images/login.png";
 
 function Login() {
-
-
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-
-/*Configuración caCHAPTCHA */
-const [captchaValido, setCaptchaValido]= useState(null);
-const [usuarioValido,setUsuarioValido]= useState(false);
-
- const captcha = useRef(null);
-
-const onChange = () => {
-if(captcha.current.getValue()){
-  console.log('El usuario no es un robot');
- setCaptchaValido(true);
-}
-
-}
-
-const submit = (e) =>{
-  e.preventDefault();
-  if(captcha.current.getValue()){
-    console.log('El usuario no es un robot');
-   setUsuarioValido(true);
-   setCaptchaValido(true);
-  }else{
-    console.log('Por favor acepta el captcha');
-   setUsuarioValido(false);
-   setCaptchaValido(false);
-  }
-}
-/*Fin Configuración caCHAPTCHA */
 
   return (
     <Helmet title="">
@@ -50,7 +19,6 @@ const submit = (e) =>{
         <Container>
           <Row>
             <div className="container h-100">
-              {!usuarioValido ?(
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-lg-12 col-xl-9">
                   <div
@@ -59,7 +27,6 @@ const submit = (e) =>{
                   >
                     <div className="card-body p-md-5">
                       <div className="row justify-content-center">
-                       
                         <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-0">
                           <p
                             className="text-center h5 fw-bold mb-4"
@@ -68,7 +35,7 @@ const submit = (e) =>{
                             IniciarSesión
                           </p>
 
-                          <form className="formulario" action="" onSubmit={submit}>
+                          <Form>
                             <div className="d-flex flex-row align-items-center mb-0">
                               <i
                                 className="ri-mail-check-fill"
@@ -131,30 +98,16 @@ const submit = (e) =>{
 
                             <div
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
-                              style={{ padding: "5px 10px" }}/>
-                          
-                     
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                             <div className="recaptcha">
-                              <ReCAPTCHA
-                              ref={captcha}
-                           sitekey="6LfrROcpAAAAAI4Fs_n8ysYTmycOIUgzeokfT9y-"
-                            onChange={onChange}
-                           />
-                          </div>
-                         {captchaValido===false && <div className="erro-captcha">Por favor acepta el captcha</div>}
-
-
-
-                             <Button
+                              style={{ padding: "5px 10px" }}
+                            >
+                              <Button
                                 className="btn secondary_btn auth_btn"
                                 type="submit"
                               >
                                 Iniciar Sesión
                               </Button>
                             </div>
-                          </form>
-    
+                          </Form>
 
                           <div className="links">
                             <a href="#!">Olvidó la Contraseña?</a>
@@ -185,38 +138,7 @@ const submit = (e) =>{
                   </div>
                 </div>
               </div>
-
-) : (
-  <div className="row d-flex justify-content-center align-items-center h-100">
-    <div className="col-lg-12 col-xl-9">
-      <div className="card text-black" style={{ borderRadius: "25px" }}>
-        <div className="card-body p-md-5">
-          <div className="row justify-content-center">
-            <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-0">
-              <p className="text-center h5 fw-bold mb-4" style={{ color: "#000d6b" }}>
-                Bienvenido de nuevo!
-              </p>
-              <div>
-                <p className="text-center">Has iniciado sesión con éxito.</p>
-                <Link to="/">Ir a la página principal</Link>
-              </div>
             </div>
-            <div className="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
-              <img
-                src={loginImg}
-                className="img-fluid mt-3 mt-lg-0 me-lg-3"
-                alt="Sample image"
-                style={{ maxWidth: "400px" }}
-              />
-</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          
           </Row>
         </Container>
       </section>
