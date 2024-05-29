@@ -23,12 +23,6 @@ display: "Mantenimiento de Autos",
 path: "/cars",
 display: "Reservar",
 },
-  
-
-{
-path: "/DatosUsuarios",
-display: "Usuarios",
-},
 {
 path: "/Reservar",
 display: "Información de Reserva",
