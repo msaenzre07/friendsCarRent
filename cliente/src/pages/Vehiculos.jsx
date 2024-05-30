@@ -4,33 +4,30 @@ import { Container, Row, Form } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 function Vehiculos() {
-  // variables que guardan características de vehículos
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [transmision, setTransmision] = useState("");
   const [kilometraje, setKilometraje] = useState("");
   const [precioDia, setPrecioDia] = useState("");
-  const [file, setFile] = useState();
-  const [id, setId] = useState();
+  const [file, setFile] = useState(null);
+  const [fileUrl, setFileUrl] = useState(""); // Agrega esto para manejar la URL del archivo
+  const [disponible, setDisponible] = useState(true);
+  const [_id, setId] = useState("");
   const [editar, setEditar] = useState(false);
-  const [vehiculosList, setVehiculosList] = useState([]); //Lista de Vehiculos-se inicializa una lista vacía
+  const [vehiculosList, setVehiculosList] = useState([]);
 
-  //CRUD- Add a una Lista de Vehiculos (viene los datos que obtenemos desde la API
-  //UseEffect  Realizar la llamada a la API una vez que el componente se monta.
   useEffect(() => {
-    //getVehiculos(); // Llama a la función getVehiculos una vez que el componente se monta
-  }, []); // Se llamará solo después de que el usuario interactúe con el formulario
+    getVehiculos();
+  }, []);
 
   const getVehiculos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/getVehiculos");
+      const response = await axios.get("http://localhost:3000/vehiculos");
       setVehiculosList(response.data);
-      alert("Vehículo registrado");
     } catch (error) {
-      console.error("Error al obtener los vehículos:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -41,35 +38,36 @@ function Vehiculos() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    getVehiculos(); // Llama a getVehiculos cuando el usuario envía el formulario
+    if (editar) {
+      updateVehiculos();
+    } else {
+      createVehiculos();
+    }
   };
 
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
-  //CRUD-Función add Vehiculos
   const createVehiculos = async () => {
     try {
       const formData = new FormData();
-      formData.append("marca", marca);
-      formData.append("modelo", modelo);
-      formData.append("transmision", transmision);
-      formData.append("kilometraje", kilometraje);
-      formData.append("precioDia", precioDia);
-      formData.append("file", file);
+      formData.append('file', file);
+      formData.append('marca', marca);
+      formData.append('modelo', modelo);
+      formData.append('transmision', transmision);
+      formData.append('kilometraje', kilometraje);
+      formData.append('precioDia', precioDia);
+      formData.append('disponible', disponible);
 
-      const response = await axios.post(
-        "http://localhost:3001/createVehiculos",
-        formData
-      );
-
+      const response = await axios.post('http://localhost:3000/vehiculos', formData);
+      
       if (response.data.Status === "Success") {
-        await getVehiculos(); // Vuelve a obtener los vehículos después de agregar uno nuevo
-        limpiarCampos(); //Limpia los campos del formulario
+        await getVehiculos();
+        limpiarCampos();
         Swal.fire({
           title: "<strong>Registro exitoso!!!</strong>",
-          html:
-            "<i>El vehículo <strong> " +
-            marca +
-            " </strong>fue registrado con exito!!!</i>",
+          text: "El vehículo " + marca + " fue registrado con éxito!!!",
           icon: "success",
           timer: 3000,
         });
@@ -81,45 +79,44 @@ function Vehiculos() {
         });
       }
     } catch (error) {
-      console.error("Error al agregar el vehículo:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text:
-          JSON.parse(JSON.stringify(error)).message === "Network Error"
-            ? "Intente más tarde"
-            : JSON.parse(JSON.stringify(error)).message,
+        text: error.response ? error.response.data.message : "Intente más tarde",
       });
     }
   };
 
-  //CRUD-update  Vehiculos ruta
   const updateVehiculos = async () => {
     try {
+      if (!_id) {
+        throw new Error("El ID del vehículo no está definido");
+      }
+
       const formData = new FormData();
-      formData.append("id", id);
+      formData.append("_id", _id);
       formData.append("marca", marca);
       formData.append("modelo", modelo);
       formData.append("transmision", transmision);
       formData.append("kilometraje", kilometraje);
       formData.append("precioDia", precioDia);
-      formData.append("file", file);
+      if (file) {
+        formData.append("file", file);
+      }
+      formData.append("disponible", disponible);
 
       const response = await axios.put(
-        "http://localhost:3001/updateVehiculos",
+        `http://localhost:3000/vehiculos/${_id}`,
         formData
       );
 
       if (response.data.Status === "Success") {
-        await getVehiculos(); // Vuelve a obtener los vehículos después de la actualización
+        await getVehiculos();
         limpiarCampos();
         Swal.fire({
           title: "<strong>Actualización exitosa!!!</strong>",
-          html:
-            "<i>El vehículo <strong> " +
-            marca +
-            " </strong>fue actualizado con exito!!!</i>",
-          icon: "sucess",
+          text: `El vehículo ${marca} fue actualizado con éxito!!!`,
+          icon: "success",
           timer: 3000,
         });
       } else {
@@ -129,20 +126,22 @@ function Vehiculos() {
           text: "Error al actualizar vehículo. Intente más tarde.",
         });
       }
-      //console.error("Error al actualizar el vehículo:", error);
     } catch (error) {
+      let errorMessage = "Intente más tarde"; // Mensaje predeterminado
+      if (error.response && error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text:
-          JSON.parse(JSON.stringify(error)).message === "Network Error"
-            ? "Intente más tarde"
-            : JSON.parse(JSON.stringify(error)).message,
+        text: errorMessage,
       });
     }
   };
 
-  //CRUD-delete  Vehiculos ruta
   const deleteVehiculos = async (val) => {
     try {
       const result = await Swal.fire({
@@ -158,27 +157,26 @@ function Vehiculos() {
         confirmButtonText: "Si, eliminarlo!",
       });
       if (result.isConfirmed) {
-        const response =  await axios.delete(`http://localhost:3001/deleteVehiculos/${val.id}`);
+        const response = await axios.delete(`http://localhost:3000/vehiculos/${val._id}`);
         if (response.status === 200) {
-        await getVehiculos(); // Vuelve a obtener los vehículos después de eliminar uno
-        limpiarCampos();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: val.marca + "fue eliminado",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }else {
-        throw new Error("Error al eliminar el vehículo");
+          await getVehiculos();
+          limpiarCampos();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: val.marca + "fue eliminado",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          throw new Error("Error al eliminar el vehículo");
+        }
       }
-    }
     } catch (error) {
-      //console.error("Error al eliminar el vehículo:", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "No se logro eliminar el vehículo!",
+        text: "No se logró eliminar el vehículo!",
         footer:
           JSON.parse(JSON.stringify(error)).message === "Network Error"
             ? "Intente más tarde"
@@ -187,19 +185,19 @@ function Vehiculos() {
     }
   };
 
-  //VERIFICAR LOS CAMPOS QUE NO SE LIMPIAN Y PONER LA VARIABLE AQUI O QUITAR
   const limpiarCampos = () => {
     setMarca("");
     setModelo("");
     setTransmision("");
     setKilometraje("");
     setPrecioDia("");
-    setFile("");
+    setFile(null);
+    setFileUrl(""); // Limpiar la URL del archivo
     setId("");
+    setDisponible(true);
     setEditar(false);
   };
 
-  //CRUD-Editar vehículos
   const editarVehiculos = (val) => {
     setEditar(true);
     setMarca(val.marca);
@@ -207,8 +205,9 @@ function Vehiculos() {
     setTransmision(val.transmision);
     setKilometraje(val.kilometraje);
     setPrecioDia(val.precioDia);
-    setFile(val.file);
-    setId(val.id);
+    setFileUrl(val.file); // Guardar la URL del archivo en lugar del archivo en sí
+    setId(val._id);
+    setDisponible(val.disponible);
   };
 
   return (
@@ -219,150 +218,170 @@ function Vehiculos() {
           <Row>
             <div className="container">
               <div className="card text-center">
-              <Form onSubmit={handleSubmit}>
-                <div className="card-header">Gestión de vehículos</div>
-                <div className="card-body">
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">Marca: </span>
-                    <input
-                       id="marca"
-                      type="marca"
-                      name="marca"
-                      value={marca}
-                      onChange={(event) => {
-                        setMarca(event.target.value);
-                      }} //se envia la info mediante event que cont los datos y los asigna a setMarca
-                      className="form-control"
-                      placeholder="Ingrese una marca"
-                      required={true}
-                    />
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">Modelo: </span>
-                    <input
-                       id="modelo"
-                      type="modelo"
-                      name="modelo"
-                      value={modelo}
-                      onChange={(event) => {
-                        setModelo(event.target.value);
-                      }}
-                      className="form-control"
-                      aria-label="Modelo"
-                      aria-describedby="basic-addon1"
-                      placeholder="Ingrese un modelo"
-                      required={true}
-                    />
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <select
-                      className="form-select"
-                      aria-label="Transmisión"
-                      id="transmision"
-                      type="trasmision"
-                      name="transmision"
-                      value={transmision}
-                      onChange={(event) => {
-                        setTransmision(event.target.value);
-                      }}
-                    >
-                      <option value="">Transmisión</option>
-                      <option value="Automático">Automático</option>
-                      <option value="Manual">Manual</option>
-                    </select>
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">Kilometraje: </span>
-
-                    <input
-                      id="kilometraje"
-                      type="kilometraje"
-                      name="kilometraje"
-                      value={kilometraje}
-                      onChange={(event) => {
-                        setKilometraje(event.target.value);
-                      }}
-                      className="form-control"
-                      aria-label="kilometraje"
-                      aria-describedby="basic-addon1"
-                      placeholder="Ingrese el kilometraje"
-                      required={true}
-                    />
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <span className="input-group-text">Precio por día: </span>
-
-                    <input
-                      type="precioDia"
-                      id="precioDia"
-                      name="precioDia"
-                      value={precioDia}
-                      onChange={(event) => {
-                        setPrecioDia(event.target.value);
-                      }}
-                      className="form-control"
-                      aria-label="precioDia"
-                      aria-describedby="basic-addon1"
-                      placeholder="Ingrese el precio por día"
-                      required={true}
-                    />
-                  </div>
-
-                  <div className="input-group mb-3">
-                    <input
-                      type="file"
-                      name="file"
-                      onChange={(event) => setFile(event.target.files[0])}
-                      className="form-control"
-                      id="inputGroupFile02"
-                      multiple={false} // Permitir solo una imagen a la vez
-                    />
-                  </div>
-                  <div className="input-group mb-3">
-                    Tamaño máximo de archivo 50 MB.
-                  </div>
-                </div>
-
-                <div className="card-footer text-body-muted">
-                  {editar ? (
-                    <div>
-                      <button
-                        className="btn btn-warning m-2"
-                        type="submit"
-                        onClick={updateVehiculos}
-                      >
-                        Actualizar
-                      </button>
-                      <button
-                        className="btn btn-info m-2"
-                        type="submit"
-                        onClick={limpiarCampos}
-                      >
-                        Cancelar
-                      </button>
+                <Form onSubmit={handleSubmit}>
+                  <div className="card-header">Gestión de vehículos</div>
+                  <div className="card-body">
+                    <div className="input-group mb-3">
+                      <span className="input-group-text">Marca: </span>
+                      <input
+                        id="marca"
+                        type="text"
+                        name="marca"
+                        value={marca}
+                        onChange={(event) => {
+                          setMarca(event.target.value);
+                        }}
+                        className="form-control"
+                        placeholder="Ingrese una marca"
+                        required={true}
+                      />
                     </div>
-                  ) : (
-                    <button
-                      className="btn btn-success"
-                      type="submit"
-                      onClick={createVehiculos}
-                    >
-                      Registrar
-                    </button>
-                  )}
-                </div>
-              </Form>
 
+                    <div className="input-group mb-3">
+                      <span className="input-group-text">Modelo: </span>
+                      <input
+                        id="modelo"
+                        type="text"
+                        name="modelo"
+                        value={modelo}
+                        onChange={(event) => {
+                          setModelo(event.target.value);
+                        }}
+                        className="form-control"
+                        aria-label="Modelo"
+                        aria-describedby="basic-addon1"
+                        placeholder="Ingrese un modelo"
+                        required={true}
+                      />
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <select
+                        className="form-select"
+                        aria-label="Transmisión"
+                        id="transmision"
+                        type="text"
+                        name="transmision"
+                        value={transmision}
+                        onChange={(event) => {
+                          setTransmision(event.target.value);
+                        }}
+                      >
+                        <option value="">Transmisión</option>
+                        <option value="Automático">Automático</option>
+                        <option value="Manual">Manual</option>
+                      </select>
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <span className="input-group-text">Kilometraje: </span>
+
+                      <input
+                        id="kilometraje"
+                        type="number"
+                        name="kilometraje"
+                        value={kilometraje}
+                        onChange={(event) => {
+                          setKilometraje(event.target.value);
+                        }}
+                        className="form-control"
+                        aria-label="Kilometraje"
+                        aria-describedby="basic-addon1"
+                        placeholder="Ingrese el kilometraje"
+                        required={true}
+                      />
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <span className="input-group-text">Precio por día: </span>
+
+                      <input
+                        type="number"
+                        id="precioDia"
+                        name="precioDia"
+                        value={precioDia}
+                        onChange={(event) => {
+                          setPrecioDia(event.target.value);
+                        }}
+                        className="form-control"
+                        aria-label="Precio por día"
+                        aria-describedby="basic-addon1"
+                        placeholder="Ingrese el precio por día"
+                        required={true}
+                      />
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <label htmlFor="disponible" className="input-group-text">
+                        Disponible:
+                      </label>
+                      <select
+                        id="disponible"
+                        name="disponible"
+                        className="form-select"
+                        value={disponible}
+                        onChange={(event) => {
+                          setDisponible(event.target.value);
+                        }}
+                      >
+                        <option value={true}>Activo</option>
+                        <option value={false}>Inactivo</option>
+                      </select>
+                    </div>
+
+                    <div className="input-group mb-3">
+                      <input
+                        type="file"
+                        name="file"
+                        onChange={handleFileChange}
+                        className="form-control"
+                        id="inputGroupFile02"
+                        multiple={false}
+                      />
+                    </div>
+                    {fileUrl && (
+                      <div className="input-group mb-3">
+                        <span>Archivo actual: {fileUrl}</span>
+                      </div>
+                    )}
+                    <div className="input-group mb-3">
+                      Tamaño máximo de archivo 50 MB.
+                    </div>
+                  
+                  </div>
+
+                  <div className="card-footer text-body-muted">
+                    {editar ? (
+                      <div>
+                        <button
+                          className="btn btn-warning m-2"
+                          type="submit"
+                        >
+                          Actualizar
+                        </button>
+                        <button
+                          className="btn btn-info m-2"
+                          type="button"
+                          onClick={limpiarCampos}
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className="btn btn-success"
+                        type="submit"
+                      >
+                        Registrar
+                      </button>
+                    )}
+                  </div>
+                </Form>
               </div>
 
               <table className="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
                     <th scope="col">Transmisión</th>
@@ -375,8 +394,7 @@ function Vehiculos() {
                 <tbody>
                   {vehiculosList.map((val, key) => {
                     return (
-                      <tr key={val.id}>
-                        <th>{val.id}</th>
+                      <tr key={val._id}>
                         <td>{val.marca}</td>
                         <td>{val.modelo}</td>
                         <td>{val.transmision}</td>
@@ -407,7 +425,7 @@ function Vehiculos() {
                             <button
                               type="button"
                               onClick={() => {
-                                deleteVehiculos(val.id);
+                                deleteVehiculos(val);
                               }}
                               className="btn btn-danger"
                             >
@@ -420,7 +438,6 @@ function Vehiculos() {
                   })}
                 </tbody>
               </table>
-          
             </div>
           </Row>
         </Container>
@@ -428,4 +445,5 @@ function Vehiculos() {
     </Helmet>
   );
 }
+
 export default Vehiculos;

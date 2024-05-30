@@ -1,71 +1,8 @@
--- to create a new database
-CREATE DATABASE friends_car_rent;
-
--- to use database
-USE friends_car_rent;
-
-
-
--- creating a new table
-CREATE TABLE Usuarios(
-id INT AUTO_INCREMENT PRIMARY KEY,
-    correo VARCHAR(255) NOT NULL UNIQUE,
-   contrasena VARCHAR(255) NOT NULL,
-
-);
-
--- to show all tables
-SHOW TABLE;
-
-----add column in the table----
-
-ALTER TABLE Vehiculos ADD COLUMN imagen BLOB;
-
--- to describe table
-describe Usuarios;
-
-SELECT * FROM Usuarios;
-
-CREATE TABLE Registro (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-   correo VARCHAR(255) NOT NULL UNIQUE,
-   contrasena VARCHAR(255) NOT NULL,
-    repetirContrasena VARCHAR(255) NOT NULL,
-    FOREIGN KEY (correo) REFERENCES Usuarios(correo),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-SELECT * FROM Registro;
-
-CREATE TABLE Vehiculos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    marca VARCHAR(255),
-    modelo VARCHAR(255),
-    transmision ENUM('automatico', 'manual'),
-    kilometraje DECIMAL(10, 2),
-    precioDia DECIMAL(10, 2),
-    imagen BLOB,
-    id_usuario INT, 
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 
 INSERT INTO Vehiculos (marca, modelo, transmision, kilometraje, precioDia, imagen) 
 VALUES ('Hyundai Tucson', '2021', 'automático', 20.00788, 50.00,imagen);
 VALUES ('Hyundai Accent', '2019', 'automático', 18.911, 65.00, imagen);
 VALUES ('Hyundai Elantra', '2023', 'automático', 18.730, 35.00, imagen);
-VALUES ('Hyundai TSanta Fe', '2022', 'automático', 18.104, 50.00, imagen);
-VALUES ('Hyundai Accent Blue', 'automático', 16.411, 35.00, imagen);
-VALUES ('Hyundai Creta', 'automático', 14.602, 50.00, imagene);
-VALUES ('Hyundai Galloper', 'automático', 14.362, 65.00, imagen);
-VALUES ('Hyundai H1', 'automático', 12.888, 50.00, imagen);
-VALUES ('Hyundai Grand i10', 'automático', 12.542, 45.00, imagen);
-VALUES ('Hyundai Excel', 'automático', 11.542, 50.00, imagen);
-VALUES ('Hyundai i10', 'automático', 19.933, 35.00, imagen);
-VALUES ('Hyundai Elantra GLS', 'automático', 11.611, 65.00, imagen);
 
 VALUES ('Toyota RAV4', '2019','automático', 19.605, 45.00,imagen);
 VALUES ('Toyota Yaris', '2018','automático', 12.201, 50.00, imagen);
@@ -152,78 +89,6 @@ VALUES ('BMW 320', 'automático', 19.289, 65.00, imagen);
 VALUES ('BMW X3', 'automático', 18.783, 50.00, imagen);
 VALUES ('BMW 323', 'automático', 23.518, 65.00, imagen);
 
-VALUES ('Renault Duster', 'automático', 19.490, 45.00,imagen);
-VALUES ('Renault Megane', 'automático', 32.634, 50.00, imagen);
-
-VALUES ('Mazda CX-7', 'automático', 23.678, 65.00, imagen);
-VALUES ('Mazda 3', 'automático', 21.690, 50.00, imagen);
-VALUES ('Mazda BT-50', 'automático', 22.689, 45.00, imagen);
-
-VALUES ('Mercedes Benz ML', 'automático', 22.690, 45.00,  imagen);
-VALUES ('Mercedes Benz 190', 'automático', 32.289, 50.00, imagen);
-
-VALUES ('Isuzu Rodeo', 'automático', 22.567, 35.00, imagen);
-VALUES ('Isuzu Trooper', 'automático', 22.389, 50.00, imagen);
-VALUES ('Isuzu KB', 'automático', 21.298, 50.00, imagen);
-
-VALUES ('Fiat 500', 'automático', 17.909, 40.00, imagen);
-
-VALUES ('Volkswagen Jetta', 'automático', 27.489, 35.00,imagen);
-VALUES ('Volkswagen Amarok', 'automático', 25.780, 50.00, imagen);
-VALUES ('Volkswagen Tiguan', 'automático', 25.286 65.00, imagen);
-
-VALUES ('Peugeot 206', 'automático', 19.295, 35.00, imagen);
-VALUES ('Peugeot 307', 'automático', 16.345, 40.00, imagen);
-
-VALUES ('Subaru Impreza WRX', 'automático', 22.678, 45.00, imagen);
-
-VALUES ('Hummer H3', 'automático', 18.743, 45.00, imagen);
-
-VALUES ('Lexus NX 300h', 'automático', 15.734, 50.00, imagen);
-
-VALUES ('Audi Q5', 'automático', 17.634, 65.00, imagen);
 
 
-
-
-SELECT * FROM Vehiculos;
-
-CREATE TABLE Datos_Usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    cedula VARCHAR(50),
-    edad INT,
-    correo VARCHAR(255),
-    imagen LONGBLOB
-);
-
-SELECT * FROM Datos_Usuarios;
-
-CREATE TABLE Reservar (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombreCliente VARCHAR(255),
-    cantidadDias INT,
-    fechaInicial DATE,
-    fechaFinal DATE,
-    id_vehiculo INT,
-    FOREIGN KEY (id_vehiculo) REFERENCES Vehiculos(id),
-    correo_usuario VARCHAR(255),
-    FOREIGN KEY (correo_usuario) REFERENCES Registro(correo),
-    id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES Datos_Usuarios(id)
-);
-
-
-SELECT * FROM Reservar;
-
-CREATE TABLE Devolver (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    fecha DATE,
-    hora TIME,
-    lugar VARCHAR(255),
-    id_reserva INT,
-    FOREIGN KEY (id_reserva) REFERENCES Reservar(id)
-);
-
-SELECT * FROM Devolver;
 

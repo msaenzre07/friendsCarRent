@@ -12,6 +12,4 @@ const UsuarioSchema = new mongoose.Schema({
     archivoLicencia: String  // Nuevo campo para el archivo de licencia
 });
 
-const User = mongoose.model('User', UsuarioSchema);
-
-module.exports = User;
+module.exports = mongoose.model('usuarios', UsuarioSchema);

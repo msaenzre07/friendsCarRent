@@ -6,7 +6,8 @@ const VehiculoSchema = new mongoose.Schema({
   transmision:  String,
   kilometraje: Number,
   precioDia: Number,
-  file: { type: String }  // Asumiendo que 'file' es una URL o ruta al archivo
+  file:  String  ,
+  disponible: { type: Boolean, default: true }
 });
 
-module.exports = mongoose.model('Vehiculo', VehiculoSchema);
+module.exports = mongoose.model('vehiculos', VehiculoSchema);
