@@ -18,7 +18,7 @@ const Registro = () => {
 
   const mostrarAlertaSuccess = () => {
     swal({
-      title: "Su registro con éxito",
+      title: "Registro con exitoso",
       icon: "success",
       button: "Aceptar"
     });

@@ -8,6 +8,9 @@ import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/login.css";
 import loginImg from "../assets/all-images/login.png";
+import swal from 'sweetalert';
+import axios from "axios";
+
 
 function Login() {
   const [correo, setCorreo] = useState("");
@@ -22,19 +25,20 @@ const [usuarioValido,setUsuarioValido]= useState(false);
 
 const onChange = () => {
 if(captcha.current.getValue()){
-  console.log('El usuario no es un robot');
+  swal("Éxito", "El usuario no es un robot", "success");
+  setCaptchaValido(true);
  setCaptchaValido(true);
 }
-}
+};
 
 const submit = (e) =>{
   e.preventDefault();
   if(captcha.current.getValue()){
-    console.log('El usuario no es un robot');
+    swal("Éxito", "El usuario no es un robot", "success");
    setUsuarioValido(true);
    setCaptchaValido(true);
   }else{
-    console.log('Por favor acepta el captcha');
+    swal("Error", "Por favor acepta el captcha", "error");
    setUsuarioValido(false);
    setCaptchaValido(false);
   }
@@ -113,7 +117,7 @@ const submit = (e) =>{
                                     setContrasena(event.target.value)
                                   }
                                   placeholder="Contraseña"
-                                  type="contrasena"
+                                  type="password"
                                   id="contrasena"
                                   className="form-control"
                                   required={true}
@@ -129,7 +133,7 @@ const submit = (e) =>{
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
                               style={{ padding: "5px 10px" }}
                             >
-                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
                                 <div className="recaptcha">
                                   <ReCAPTCHA
                                     ref={captcha}
