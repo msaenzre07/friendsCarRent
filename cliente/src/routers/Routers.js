@@ -10,7 +10,7 @@ import Login from "../pages/Login"
 import Registro from "../pages/Registro";
 import DatosUsuarios from "../pages/Usuarios";
 import Reservar from "../pages/Reservar";
-import Informes from "../pages/Informes";
+
 
 const Routers = () => {
     return (
@@ -27,7 +27,7 @@ const Routers = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/reservar" element={<Reservar />} />
-            <Route path="/informes" element={<Informes />} />
+        
 
         </Routes>
 

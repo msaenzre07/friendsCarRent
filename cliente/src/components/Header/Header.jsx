@@ -27,10 +27,7 @@ display: "Reservar",
 path: "/Reservar",
 display: "Información de Reserva",
 },
-{
-  path: "/informes",
-  display: "Informes",
-},
+
 {
   path: "/contacto",
   display: "Contáctenos",
