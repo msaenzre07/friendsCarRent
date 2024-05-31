@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useRef,  useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
-import { Container, Row, Form, Button } from "reactstrap";
+import { Container, Row, form, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
@@ -12,6 +13,33 @@ function Login() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
 
+
+  /*Configuración caCHAPTCHA */
+const [captchaValido, setCaptchaValido]= useState(null);
+const [usuarioValido,setUsuarioValido]= useState(false);
+
+ const captcha = useRef(null);
+
+const onChange = () => {
+if(captcha.current.getValue()){
+  console.log('El usuario no es un robot');
+ setCaptchaValido(true);
+}
+}
+
+const submit = (e) =>{
+  e.preventDefault();
+  if(captcha.current.getValue()){
+    console.log('El usuario no es un robot');
+   setUsuarioValido(true);
+   setCaptchaValido(true);
+  }else{
+    console.log('Por favor acepta el captcha');
+   setUsuarioValido(false);
+   setCaptchaValido(false);
+  }
+}
+/*Fin Configuración caCHAPTCHA */
   return (
     <Helmet title="">
       <CommonSection title="Iniciar Sesión" />
@@ -19,6 +47,7 @@ function Login() {
         <Container>
           <Row>
             <div className="container h-100">
+            {!usuarioValido ? (
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-lg-12 col-xl-9">
                   <div
@@ -35,7 +64,7 @@ function Login() {
                             IniciarSesión
                           </p>
 
-                          <Form>
+                          <form className="formulario" action="" onSubmit={submit}>
                             <div className="d-flex flex-row align-items-center mb-0">
                               <i
                                 className="ri-mail-check-fill"
@@ -100,6 +129,17 @@ function Login() {
                               className="d-flex justify-content-center mx-4 mb-3 mb-lg-5"
                               style={{ padding: "5px 10px" }}
                             >
+                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                                <div className="recaptcha">
+                                  <ReCAPTCHA
+                                    ref={captcha}
+                                    sitekey="6Lf9newpAAAAAEP9fAdng11fHLpJNuTA4QlkN8_m"
+                                    onChange={onChange}
+                                  />
+                                </div>
+                                {captchaValido === false && <div className="erro-captcha">Por favor acepta el captcha</div>}
+
+
                               <Button
                                 className="btn secondary_btn auth_btn"
                                 type="submit"
@@ -107,7 +147,8 @@ function Login() {
                                 Iniciar Sesión
                               </Button>
                             </div>
-                          </Form>
+                            </div>
+                          </form>
 
                           <div className="links">
                             <a href="#!">Olvidó la Contraseña?</a>
@@ -138,6 +179,7 @@ function Login() {
                   </div>
                 </div>
               </div>
+            ) : null}
             </div>
           </Row>
         </Container>
