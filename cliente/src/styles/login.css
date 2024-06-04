@@ -15,35 +15,16 @@
   background-size: cover;
   background-position: center;
   height: 100vh;
-  display: flex;
-  align-items: center;
-}
-.auth_btn {
-  /*background-color: #000d6b;
-  width: 100%;
-  color: #fff !important;*/
 
-  font-size: 14px;
-  padding: 10px 20px;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-
-  -webkit-appearance: none;
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  box-shadow: 0 2px 25px rgba(38, 4, 142, 0.899);
 }
+
+.auth_btn,
 .bubbly_button {
   font-size: 14px;
   padding: 10px 20px;
   border: none;
   outline: none;
   border-radius: 5px;
-
   -webkit-appearance: none;
   appearance: none;
   border: none;
@@ -52,10 +33,48 @@
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
   box-shadow: 0 2px 25px rgba(38, 4, 142, 0.899);
 }
+.auth_btn:hover,
+.bubbly_button:hover {
+  background-color: #002f9e;
+  transform: scale(1.05); /* añade un pequeño zoom en hover */
+}
 .registro{
   max-width: 800px;
 	width: 90%;
 	margin: auto;
 	padding: 40px;
+  background: rgba(255, 255, 255, 0.9); /* Adding a background to make it readable */
+  border-radius: 8px;
 
+}
+/* Media Queries */
+
+/* Tablets */
+@media only screen and (max-width: 768px) {
+  .body-login {
+    padding: 20px;
+  }
+
+  .registro {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .auth_btn,
+  .bubbly_button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+/* Mobile Phones */
+@media only screen and (max-width: 576px) {
+  .registro {
+    padding: 15px;
+  }
+
+  .auth_btn,
+  .bubbly_button {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
 }

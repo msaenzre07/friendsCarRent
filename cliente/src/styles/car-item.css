@@ -46,9 +46,20 @@
 
 .car__btn-rent {
   border-radius: 4px;
- 
-}
 
+  background-color: #000d6b; /* color inicial de fondo */
+  color: #fff; /* color inicial del texto */
+  padding: 10px 20px; /* ajusta el padding según sea necesario */
+  border: none; /* elimina cualquier borde */
+  cursor: pointer; /* cambia el cursor a pointer para indicar que es clickeable */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* añade una transición suave */
+  
+}
+.car__btn-rent:hover {
+  background-color: #000d6b; /* cambia el color de fondo en hover */
+  transform: scale(1.05); /* aplica un pequeño zoom */
+  color: #fff; /* mantiene el color del texto */
+}
 
 
 .car__item-content h4 {

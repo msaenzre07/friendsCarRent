@@ -226,7 +226,7 @@ const Reservar = () => {
                                 <button
                                   type="submit"
                                   onClick={handleSubmit}
-                                  className="btn btn-light btn-lg"
+                                  className="btn btn-light btn-lg reservar-btn"
                                   style={{ color: "#fff" }}
                                 >
                                   Reservar Ahora

@@ -1,23 +1,114 @@
+/* Botón de contacto */
 .contact__btn {
-    padding: 10px 30px;
-    background: #000d6b;
-    color: #fff;
-    border: none;
-    outline: none;
-    border-radius: 5px;
+  padding: 10px 30px;
+  background: #000d6b;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.contact__btn:hover {
+  background-color: #000d6b;
+  transform: scale(1.05); /* Opcional: añade un pequeño zoom en hover */
+}
+
+.textarea {
+  width: 100%;
+  resize: none;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+/* Estilos generales para la sección de contacto */
+.contact__form {
+  margin-bottom: 20px;
+}
+
+.section__title h2 {
+  font-size: 2rem;
+  color: #000d6b;
+  margin-bottom: 20px;
+}
+.section__description {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Media query para pantallas de hasta 768px */
+@media only screen and (max-width: 768px) {
+  .contact__btn {
+    margin-bottom: 40px;
+    font-size: 0.8rem;
   }
+
   .textarea {
-    width: 100%; 
-    resize: none;
-    border-radius: 6px;
-    border: 1px solid #ccc; 
+    font-size: 0.9rem;
+    padding: 8px;
   }
-  
-  
-  @media only screen and (max-width: 768px) {
-    .contact__btn {
-      margin-bottom: 40px;
-      font-size: 0.8rem;
-    }
+}
+/* Estilos para la información de contacto */
+.contact__info {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.contact__info h2 {
+  margin-bottom: 20px;
+}
+.contact__info div {
+  margin-bottom: 10px;
+}
+
+/* Estilos responsivos */
+@media only screen and (max-width: 992px) {
+  .section__title {
+    font-size: 1.8rem;
   }
-  
+
+  .section__description {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .contact__btn {
+    margin-bottom: 40px;
+    font-size: 0.8rem;
+  }
+
+  .section__title {
+    font-size: 1.5rem;
+  }
+
+  .section__description {
+    font-size: 0.8rem;
+  }
+
+  .contact__info {
+    padding: 15px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .section__title h2 {
+    font-size: 1.2rem;
+  }
+
+  .section__description {
+    font-size: 0.8rem;
+  }
+
+  .contact__btn {
+    padding: 8px 20px;
+  }
+
+  .contact__info {
+    padding: 10px;
+  }
+}

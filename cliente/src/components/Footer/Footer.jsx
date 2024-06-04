@@ -12,12 +12,12 @@ const quickLinks = [
 
   {
     path: "/cars",
-display: "Reservar",
+    display: "Reservar",
   },
 
   {
     path: "/contacto",
-  display: "Contáctenos",
+    display: "Contáctenos",
   },
 ];
 
@@ -39,11 +39,14 @@ const Footer = () => {
                 </Link>
               </h1>
             </div>
-            <p className="footer__logo-content"style={{ textAlign: "justify"}} >
+            <p
+              className="footer__logo-content"
+              style={{ textAlign: "justify" }}
+            >
               Aviva tu pasión por los viajes, ven disfruta de una experiencia
-              increíble en Friend's Car Rent. Haz que una
-              ocasión especial sea memorable. Viaje a la velocidad del presente,
-              es tu elección. Siempre.
+              increíble en Friend's Car Rent. Haz que una ocasión especial sea
+              memorable. Viaje a la velocidad del presente, es tu elección.
+              Siempre.
             </p>
           </Col>
 
@@ -64,12 +67,18 @@ const Footer = () => {
             <div className="mb-4">
               <h5 className="footer__link-title mb-4">Sede Central</h5>
               <p className="office__info">
-                <i className="ri-road-map-line" style={{ color: "#D2691E" }}></i>
+                <i
+                  className="ri-road-map-line"
+                  style={{ color: "#D2691E" }}
+                ></i>
                 Alajuela, San Carlos, Ciudad Quesada
               </p>
 
               <p className="office__info">
-                <i className="ri-mail-check-line" style={{ color: "#D2691E" }}></i>
+                <i
+                  className="ri-mail-check-line"
+                  style={{ color: "#D2691E" }}
+                ></i>
                 Correo: friendsCarRent2024@outlook.com
               </p>
 
@@ -85,7 +94,10 @@ const Footer = () => {
               <h5 className="footer__link-title">Contacta Con Nosotros</h5>
               <div className="newsletter">
                 <span>
-                  <i className="ri-whatsapp-line" style={{ color: "#D2691E" }}></i>
+                  <i
+                    className="ri-whatsapp-line"
+                    style={{ color: "#D2691E" }}
+                  ></i>
                   Teléfono: +50684797554
                 </span>
               </div>
@@ -95,8 +107,8 @@ const Footer = () => {
           <Col lg="12">
             <div className="footer_copyright">
               <p className="section__footer d-flex align-items-center justify-content-center gap-1 pt-4">
-                <i className="ri-copyright-line"></i>Copyright {year}, Friend's Car
-                Rent. Todos los derechos reservados.
+                <i className="ri-copyright-line"></i>Copyright {year}, Friend's
+                Car Rent. Todos los derechos reservados.
               </p>
             </div>
           </Col>

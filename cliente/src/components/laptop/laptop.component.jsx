@@ -1,5 +1,5 @@
 import React from 'react'
-import './laptop.styles.css'
+import './laptop.styles.css';
 
 export const Laptop = () => {
     return (
