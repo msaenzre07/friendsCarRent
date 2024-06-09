@@ -162,6 +162,27 @@
 .nav__active {
   color: #f9a826;
 }
+.banderas {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.banderas button {
+  border: none;
+  cursor: pointer;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+  width: 30px;
+  margin-left: 10px;
+}
+
+.banderas button img {
+  width: 100%;
+}
 
 /* Responsive styles */
 @media only screen and (max-width: 992px) {
@@ -223,6 +244,10 @@
   .menu__active {
     display: block;
   }
+  .banderas button {
+    width: 25px;
+    margin-left: 5px;
+  }
 }
 
 @media only screen and (max-width: 576px) {
@@ -244,5 +269,9 @@
 
   .header__btn {
     padding: 8px 16px;
+  }
+  .banderas button {
+    width: 20px;
+    margin-left: 5px;
   }
 }
