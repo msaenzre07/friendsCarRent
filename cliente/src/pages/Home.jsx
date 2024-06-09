@@ -15,24 +15,25 @@ import Information from "../components/UI/Information";
 import BlogList from "../components/UI/BlogList";
 
 const Home = () => {
-  return (
-    <Helmet title="Home">
-      {/*--------hero section--------*/}
-      <section className="p-0 hero__slider-section">
+    return (
+        <Helmet title="Home">  
+          {/*--------hero section--------*/}
+          <section className="p-0 hero__slider-section">
         <HeroSlider />
 
         <div className="hero__form">
           <Container>
-            <Row className="form__row">
-              <Col lg="4" md="4" sm="12">
+          <Row className="form__row">
+              <Col lg="4" md="4">
                 <div className="find__cars-left  ">
                   <h2 className="textoAnimado">No espere más ¡Visítanos!</h2>
+                 
                 </div>
               </Col>
               <Col lg="8" md="8" sm="12">
                 <FindCarForm />
               </Col>
-            </Row>
+              </Row>   
           </Container>
         </div>
       </section>
@@ -57,9 +58,7 @@ const Home = () => {
           <Row>
             <Col lg="12" className="text-center mb-5">
               <h6 className="section__subtitle">Vehículos de alquiler</h6>
-              <h2 className="section__title">
-                Descubre más opciones para tu viaje
-              </h2>
+              <h2 className="section__title">Descubre más opciones para tu viaje</h2>
             </Col>
 
             {carData.slice(0, 6).map((item) => (
@@ -68,45 +67,38 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      {/* ----- become a driver section ----- */}
-      <BecomeDriverSection />
+        {/* ----- become a driver section ----- */}
+        <BecomeDriverSection />
 
-      {/* =========== information section =========== */}
-      <section>
+        {/* =========== information section =========== */}
+        <section>
         <Container>
           <Row>
             <Col lg="12" className="mb-4 text-center">
               <h6 className="section__subtitle">Información útil</h6>
-              <h2 className="section__title">
-                Al considerar alquilar un vehículo es importante tener en cuenta
-              </h2>
+              <h2 className="section__title">Al considerar alquilar un vehículo es importante tener en cuenta</h2>
             </Col>
 
             <Information />
           </Row>
         </Container>
       </section>
-
+      
       {/*------- blog section ---------- */}
       <section>
         <Container>
           <Row>
             <Col lg="12" className="mb-5 text-center">
-              <h6 className="section__subtitle">
-                ¿Quieres sentir el confort en cada viaje?{" "}
-              </h6>
-              <h2 className="section__title">
-                Con nuestros autos, la aventura está a solo un volante de
-                distancia
-              </h2>
+              <h6 className="section__subtitle">¿Quieres sentir el confort en cada viaje? </h6>
+              <h2 className="section__title">Con nuestros autos, la aventura está a solo un volante de distancia</h2>
             </Col>
 
-            <BlogList />
-          </Row>
-        </Container>
-      </section>
-    </Helmet>
-  );
+                 <BlogList />
+                </Row>
+            </Container>
+            </section>
+        </Helmet>
+    );
 };
 
 export default Home;

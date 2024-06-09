@@ -5,15 +5,10 @@ const mongoose = require('mongoose');
 const multer = require('multer'); // Importar multer
 const path = require('path');
 
+const { register, login,logout, updateUser, getUserById } = require('./src/controllers/usuariosController');
+
 const {
-  register,
-  updateUser,
-  getUserById,
-} = require('./src/controllers/usuariosController');
-const {
-  createVehiculo,
-  getAllVehiculos,
-  getVehiculoById,
+  createVehiculo,getAllVehiculos, getVehiculoById,
   updateVehiculoById,
   deleteVehiculoById,
 } = require('./src/controllers/vehiculosController');
@@ -32,7 +27,7 @@ const mongoString = process.env.DATABASE_URL;
 
 mongoose.connect(mongoString, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 })
   .then(() => {
     console.log('Database Connected');
@@ -59,7 +54,9 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Servir archivos estáticos
 
 app.post('/registro', register);
-app.put('/usuarios', updateUser);
+app.post('/login', login);  // Asegúrate de que esta ruta esté definida
+app.post('/logout', logout);
+app.put('/usuarios/:id', updateUser); // Cambia la ruta para incluir el ID del usuario
 app.get('/usuarios/:id', getUserById);
 
 app.post('/vehiculos', upload.single('file'), createVehiculo);
