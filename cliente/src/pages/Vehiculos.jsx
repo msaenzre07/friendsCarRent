@@ -13,11 +13,12 @@ function Vehiculos() {
   const [kilometraje, setKilometraje] = useState("");
   const [precioDia, setPrecioDia] = useState("");
   const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(""); // Manejar la URL del archivo
   const [disponible, setDisponible] = useState(true);
   const [_id, setId] = useState("");
   const [editar, setEditar] = useState(false);
   const [vehiculosList, setVehiculosList] = useState([]);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [pasajeros, setPasajeros] = useState(0); // Agregar estado para pasajeros
 
   useEffect(() => {
     getVehiculos();
@@ -35,57 +36,60 @@ function Vehiculos() {
       });
     }
   };
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (editar) {
       updateVehiculos();
     } else {
-      createVehiculos();
+      await uploadImageAndCreateVehiculos();
     }
   };
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
-  const createVehiculos = async () => {
+  const uploadImageAndCreateVehiculos = async () => {
     try {
+      console.log("uploadImageAndCreateVehiculos"+file);
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('marca', marca);
-      formData.append('modelo', modelo);
-      formData.append('transmision', transmision);
-      formData.append('kilometraje', kilometraje);
-      formData.append('precioDia', precioDia);
-      formData.append('disponible', disponible);
+      formData.append('file', file); // Adjunta el archivo a FormData
+     
+      const response = await axios.post("http://localhost:3000/upload", formData);
+      const fileUrl = response.data.fileUrl; // URL de la imagen en Google Drive
+      console.log("Uploaded file URL: ", fileUrl);
+      await createVehiculos(fileUrl.name);
+    } catch (error) {
+      handleRequestError(error);
+    }
+  };
+  
 
-      const response = await axios.post('http://localhost:3000/vehiculos', formData);
-      
-      if (response.data.Status === "Success") {
+  const createVehiculos = async (fileUrl) => {
+    try {
+      const formData = {
+        marca,
+        modelo,
+        transmision,
+        kilometraje,
+        precioDia,
+        disponible,
+        pasajeros,
+        file: fileUrl // Aquí pasamos la URL de la imagen en lugar del archivo
+      };
+      const response = await axios.post("http://localhost:3000/vehiculos", formData);
+      if (response.data.status === "Success") {
         await getVehiculos();
         limpiarCampos();
-        Swal.fire({
-          title: "<strong>Registro exitoso!!!</strong>",
-          text: "El vehículo " + marca + " fue registrado con éxito!!!",
-          icon: "success",
-          timer: 3000,
-        });
+        showSuccessAlert(`Vehículo ${marca} creado exitosamente`);
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Error al crear vehículo. Intente más tarde.",
-        });
+        showErrorAlert("Error al crear vehículo. Intente más tarde.");
       }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response ? error.response.data.message : "Intente más tarde",
-      });
+      handleRequestError(error);
     }
   };
+
 
   const updateVehiculos = async () => {
     try {
@@ -104,12 +108,12 @@ function Vehiculos() {
         formData.append("file", file);
       }
       formData.append("disponible", disponible);
+      formData.append('pasajeros', pasajeros); // Agregar pasajeros a formData
 
       const response = await axios.put(
         `http://localhost:3000/vehiculos/${_id}`,
         formData
       );
-
       if (response.data.Status === "Success") {
         await getVehiculos();
         limpiarCampos();
@@ -192,7 +196,6 @@ function Vehiculos() {
     setKilometraje("");
     setPrecioDia("");
     setFile(null);
-    setFileUrl(""); // Limpiar la URL del archivo
     setId("");
     setDisponible(true);
     setEditar(false);
@@ -205,9 +208,37 @@ function Vehiculos() {
     setTransmision(val.transmision);
     setKilometraje(val.kilometraje);
     setPrecioDia(val.precioDia);
-    setFileUrl(val.file); // Guardar la URL del archivo en lugar del archivo en sí
     setId(val._id);
     setDisponible(val.disponible);
+  };
+  const showErrorAlert = (message) => {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: message,
+    });
+  };
+
+  const showSuccessAlert = (message) => {
+    Swal.fire({
+      icon: "success",
+      title: "Éxito",
+      text: message,
+    });
+  };
+
+  const handleRequestError = (error) => {
+    let errorMessage = "Intente más tarde";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
+    } else if (error.message) {
+      errorMessage = error.message;
+    }
+    showErrorAlert(errorMessage);
+  };
+
+  const handlePasajerosChange = (event) => {
+    setPasajeros(event.target.value);
   };
   return (
     <Helmet title="Mantenimiento de Vehículos">
@@ -329,6 +360,26 @@ function Vehiculos() {
                     </div>
 
                     <div className="input-group mb-3">
+                      <label htmlFor="pasajeros" className="input-group-text">
+                        Pasajeros:
+                      </label>
+                      <input
+                        type="number"
+                        id="pasajeros"
+                        name="pasajeros"
+                        value={pasajeros}
+                        onChange={(event) => {
+                          setPasajeros(event.target.value);
+                        }}
+                        className="form-control"
+                        aria-label="Cantidad de Pasajeros"
+                        aria-describedby="basic-addon1"
+                        placeholder="Ingrese la cantidad de pasajeros"
+                        required={true}
+                      />
+                    </div>
+
+                    <div className="input-group mb-3">
                       <input
                         type="file"
                         name="file"
@@ -346,7 +397,7 @@ function Vehiculos() {
                     <div className="input-group mb-3">
                       Tamaño máximo de archivo 50 MB.
                     </div>
-                  
+
                   </div>
 
                   <div className="card-footer text-body-muted">
@@ -444,5 +495,4 @@ function Vehiculos() {
     </Helmet>
   );
 }
-
 export default Vehiculos;

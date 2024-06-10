@@ -1,41 +1,39 @@
 const Vehiculo = require('../models/VehiculoModel');
+const { uploadFile } = require('../../googleDriveService');
+const upload = require('../middleware/upload.js');
 
-// Crear un nuevo vehículo
 const createVehiculo = async (req, res) => {
+  console.log(req.file);
   try {
-    const { marca, modelo, transmision, kilometraje, precioDia, disponible } = req.body;
-    const file = req.file; // Acceder al archivo cargado
-
-    // Verificar si se ha cargado un archivo
-    if (!file) {
-      return res.status(400).json({ Status: 'Error', error: 'Debes cargar una imagen para el vehículo' });
+    const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
+    const file = req.file;
+    console.log(file);
+    if (file) {
+      console.log("111");
+      const uploadedFile = await uploadFile(file, file.mimetype);
+      req.body.file = uploadedFile.name || uploadedFile.data.name;
+     
     }
+    console.log(marca, file);
 
-    // Aquí puedes procesar el archivo según sea necesario
-    // Por ejemplo, puedes guardar la ubicación del archivo en la base de datos
     const newVehiculo = new Vehiculo({
       marca,
       modelo,
       transmision,
       kilometraje,
       precioDia,
-      file: file.filename, // Guardar el nombre del archivo en la base de datos
       disponible,
+      file: req.body.file,
+      pasajeros,
     });
 
-    // Intenta guardar el vehículo
     await newVehiculo.save();
-
-    // Si se guarda correctamente, envía una respuesta con estado 201 (creado) y el objeto del vehículo creado
-    res.status(201).json({ Status: 'Success', vehiculo: newVehiculo });
+    res.status(201).json({ status: 'Success', vehiculo: newVehiculo });
   } catch (error) {
-    // Si hay un error, envía una respuesta con estado 500 (error interno del servidor) y un mensaje de error
-    console.error('Error al crear el vehículo:', error);
-    res.status(500).json({ Status: 'Error', error: 'Error al crear el vehículo' });
+    res.status(500).json({ status: 'Error', message: 'Error al crear vehículo', error: error.message });
   }
 };
 
-// Obtener todos los vehículos
 const getAllVehiculos = async (req, res) => {
   try {
     const vehiculos = await Vehiculo.find();
@@ -45,7 +43,6 @@ const getAllVehiculos = async (req, res) => {
   }
 };
 
-// Obtener un vehículo por ID
 const getVehiculoById = async (req, res) => {
   const { id } = req.params;
 
@@ -61,9 +58,9 @@ const getVehiculoById = async (req, res) => {
 };
 
 const updateVehiculoById = async (req, res) => {
-  const { _id } = req.params;
-  const { marca, modelo, transmision, kilometraje, precioDia, disponible } = req.body;
-  const file = req.file; // Acceder al archivo cargado si existe
+  const { id } = req.params;
+  const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
+  const file = req.file;
 
   try {
     const updateData = {
@@ -73,19 +70,16 @@ const updateVehiculoById = async (req, res) => {
       kilometraje,
       precioDia,
       disponible,
+      pasajeros
     };
 
     if (file) {
-      // Subir el nuevo archivo a Google Drive
-      const googleFile = await uploadFile(file.path, file.mimetype);
-      updateData.file = googleFile.id; // Actualizar con el nuevo ID del archivo de Google Drive
-
-      // Eliminar el archivo temporalmente almacenado
-      fs.unlinkSync(file.path);
+      const uploadedFile = await uploadFile(file, file.mimetype);
+      updateData.file = uploadedFile.id;
     }
 
     const updatedVehiculo = await Vehiculo.findByIdAndUpdate(
-      _id,
+      id,
       updateData,
       { new: true }
     );
@@ -101,9 +95,6 @@ const updateVehiculoById = async (req, res) => {
   }
 };
 
-
-
-// Eliminar un vehículo por ID
 const deleteVehiculoById = async (req, res) => {
   const { id } = req.params;
 
@@ -114,6 +105,7 @@ const deleteVehiculoById = async (req, res) => {
     }
     res.status(200).json({ message: 'Vehículo eliminado exitosamente' });
   } catch (error) {
+    console.error('Error al eliminar el vehículo:', error);
     res.status(500).json({ error: 'Error al eliminar el vehículo' });
   }
 };

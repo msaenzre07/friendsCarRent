@@ -7,7 +7,8 @@ const VehiculoSchema = new mongoose.Schema({
   kilometraje: Number,
   precioDia: Number,
   file:  String  ,
-  disponible: { type: Boolean, default: true }
+  disponible: { type: Boolean, default: true },
+  pasajeros: Number
 });
 
 module.exports = mongoose.model('vehiculos', VehiculoSchema);
