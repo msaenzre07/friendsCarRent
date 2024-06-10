@@ -4,10 +4,14 @@ import { Container, Row } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "../styles/reservar.css";
+import { useParams } from "react-router-dom";
+
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Reservar = () => {
+  const { id } = useParams();
+
   // Estado para almacenar los valores de los campos del formulario
   const [formData, setFormData] = useState({
     nombreCliente: "",

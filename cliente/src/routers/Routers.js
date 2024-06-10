@@ -24,7 +24,7 @@ const Routers = () => {
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
-            <Route path="/reservar" element={<Reservar />} />
+            <Route path="/reservar/:id" element={<Reservar />} />
         </Routes>
     );
 };

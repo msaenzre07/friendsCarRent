@@ -7,9 +7,10 @@ import axios from "axios";
 
 
 
+
 const CarListing = () => {
   const [vehiculos, setVehiculos] = useState([]);
-
+  
   useEffect(() => {
     axios.get("http://localhost:3000/vehiculos")
       .then(response => {
@@ -19,7 +20,7 @@ const CarListing = () => {
         console.error('Error al obtener los vehículos:', error);
       });
   }, []);
-
+ 
   return (
     <Helmet title="Reservar">
       <CommonSection title="Nuestros Vehículos de Alquiler" />
