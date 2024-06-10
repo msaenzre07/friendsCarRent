@@ -1,0 +1,105 @@
+.find__cars-left {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 76px 35px;
+}
+
+.find__cars-left h2 {
+  font-weight: 600;
+  font-size: 2.8rem;
+  color: #d2691e;
+}
+
+@keyframes moverTexto {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px); /* Mueve el texto 20px hacia la derecha */
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.textoAnimado {
+  animation: moverTexto 2s ease infinite; /* Animación que dura 2 segundos y se repite infinitamente */
+}
+
+.form {
+  background-image: url("../assets/all-images/fondo-blue.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 134px 0px;
+}
+
+.hero__slider-section {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 200px;
+}
+
+.hero__form {
+  position: absolute;
+  bottom: -150px;
+  z-index: 11;
+  width: 100%;
+}
+
+.form__row {
+  background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
+    url("../assets/all-images/imagen-veh.jpg");
+  box-shadow: 5px 5px 15px -5px #7c8a97;
+}
+
+/* Media queries */
+
+@media only screen and (max-width: 992px) {
+  .find__cars-left {
+    padding: 50px 25px; /* Ajusta el padding para tamaños de pantalla más pequeños */
+  }
+
+  .find__cars-left h2 {
+    font-size: 2rem; /* Ajusta el tamaño de la fuente para tamaños de pantalla más pequeños */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .find__cars-left {
+    padding-top: 40px 20px;
+  }
+
+  .find__cars-left h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .find__cars-left {
+    padding: 30px 15px; /* Ajusta el padding para tamaños de pantalla más pequeños */
+  }
+
+  .find__cars-left h2 {
+    font-size: 1.5rem; /* Ajusta el tamaño de la fuente para tamaños de pantalla más pequeños */
+  }
+}
+
+/*responsivo form*/
+@media only screen and (max-width: 992px) {
+  .form {
+    padding: 100px 0px; /* Ajusta el padding para tamaños de pantalla más pequeños */
+  }
+}
+@media only screen and (max-width: 768px) {
+  .form {
+    padding: 80px 0px; /* Ajusta el padding para tamaños de pantalla aún más pequeños */
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .form {
+    padding: 60px 0px; /* Ajusta el padding para tamaños de pantalla más pequeños */
+  }
+}

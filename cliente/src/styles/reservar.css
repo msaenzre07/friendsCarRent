@@ -1,0 +1,125 @@
+/* Estilos generales */
+.booking__form {
+  width: 47.5%;
+  margin-bottom: 1rem;
+}
+.form-label {
+  color: #000080;
+}
+
+.booking__form input {
+  padding: 8px 15px;
+  border: 1px solid #7c8a972a;
+  color: #000000;
+  width: 100%;
+}
+
+.booking__form select,
+.textarea {
+  width: 100%;
+  padding: 10px 15px;
+  color: #7c8a97;
+  border: 1px solid #7c8a972a;
+  border-radius: 4px;
+}
+
+.textarea:focus,
+.booking__form input:focus,
+.booking__form select:focus {
+  outline: none;
+}
+
+.time__picker::before {
+  content: "Journey Time";
+  color: #7c8a97;
+  margin-right: 0.5rem;
+}
+/* Estilos específicos para la sección */
+.background-section {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+}
+.h-custom {
+  height: 100vh !important;
+}
+
+.card-registration {
+  margin: 0 auto;
+}
+/**/
+@media only screen and (max-width: 768px) {
+  .booking__form {
+    width: 100%;
+  }
+
+  .booking__form input,
+  .textarea,
+  .booking__form select {
+    font-size: 0.8rem;
+  }
+}
+
+/*-----*/
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
+}
+.bg-indigo {
+  background-image: url("../assets/all-images/devolver.jpg");
+  background-size: cover;
+  background-position: center;
+}
+/* Estilos responsivos */
+
+@media only screen and (max-width: 768px) {
+  .booking__form {
+    width: 100%;
+  }
+
+  .booking__form input,
+  .textarea,
+  .booking__form select {
+    font-size: 0.8rem;
+  }
+
+  .bg-indigo {
+    background-image: none;
+    background-color: #000d6b;
+  }
+}
+
+.reservar-btn {
+  background-color: initial; /* Asegúrate de definir el color inicial si es necesario */
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Añade una transición suave */
+}
+
+.reservar-btn:hover {
+  background-color: #000d6b;
+  transform: scale(1.05);
+}
+
+@media (max-width: 991px) {
+  .card-registration-2 .bg-indigo {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-registration-2 .bg-indigo {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
