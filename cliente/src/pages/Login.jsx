@@ -1,6 +1,5 @@
-
 import React, { useState, useRef, useContext } from 'react';
-import {Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Container, Row, Button } from 'reactstrap';
 import Helmet from '../components/Helmet/Helmet';
@@ -38,8 +37,12 @@ function Login() {
         });
 
         swal('Éxito', response.data.message, 'success');
-        debugger
-        setUser(response.data.username);
+        setUser({
+          username: response.data.username,
+          id: response.data.userId 
+          
+        });
+
         navigate('/home'); // Navegar a la página de inicio después de iniciar sesión
       } catch (error) {
         swal('Error', error.response.data.error, 'error');

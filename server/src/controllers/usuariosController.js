@@ -50,7 +50,7 @@ const login = async (req, res) => {
 
       // Aquí podrías devolver algún tipo de identificador de sesión o token de sesión si es necesario
 
-      res.status(200).json({ message: 'Inicio de sesión exitoso', username: user.nombreCompleto });
+      res.status(200).json({ message: 'Inicio de sesión exitoso', username: user.nombreCompleto , userId: user._id});
       console.log(user.nombreCompleto);
     } catch (error) {
       console.error('Error al iniciar sesión:', error);

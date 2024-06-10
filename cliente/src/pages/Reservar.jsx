@@ -1,22 +1,19 @@
-import React, { useState } from "react";
-import {  FormGroup } from "reactstrap";
-import { Container, Row } from "reactstrap";
+import React, { useState, useEffect , useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Row, FormGroup } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import "../styles/reservar.css";
-import { useParams } from "react-router-dom";
-
-
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from '../UserContext';
+
 
 const Reservar = () => {
+  const { user } = useContext(UserContext);
   const { id } = useParams();
-
-  // Estado para almacenar los valores de los campos del formulario
+  const [vehiculo, setVehiculo] = useState({});
   const [formData, setFormData] = useState({
-    nombreCliente: "",
     cantidadDias: "",
-    lastName: "",
     fechaInicial: "",
     fechaFinal: "",
     fechaDevolucion: "",
@@ -24,31 +21,91 @@ const Reservar = () => {
     lugar: "",
   });
 
-  // Función para manejar cambios en los campos del formulario
+  useEffect(() => {
+    // Obtener datos del vehículo
+    const fetchVehiculo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/vehiculos/${id}`);
+        const data = await response.json();
+        setVehiculo(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del vehículo", error);
+      }
+    };
+
+    fetchVehiculo();
+  }, [id]);
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Función para manejar el envío del formulario
-  const handleSubmit = () => {
-    // Pendientes acciones enviar los datos al  servidor
-    console.log(formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const reservaData = {
+      ...formData,
+      id_vehiculo: id,
+      id_usuario: user.id, // Usar el id del usuario del contexto
+    };
+  
+    console.log("Enviando datos de reserva:", reservaData);
+  
+    try {
+      const response = await fetch("http://localhost:3000/reservaciones", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservaData),
+      });
+  
+      if (response.ok) {
+        console.log("Reserva creada con éxito");
+  
+        // Actualizar disponibilidad del vehículo
+        const updateResponse = await fetch(`http://localhost:3000/vehiculos/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ disponible: false }), // Actualizar a disponibilidad a false
+        });
+  
+        if (updateResponse.ok) {
+          console.log("Estado de disponibilidad del vehículo actualizado correctamente");
+        } else {
+          console.error("Error al actualizar el estado de disponibilidad del vehículo");
+        }
+      } else {
+        const errorData = await response.json();
+        console.error("Error al crear la reserva:", errorData);
+      }
+    } catch (error) {
+      console.error("Error al enviar la solicitud de reserva", error);
+    }
   };
+  
 
+ 
   return (
-    <Helmet title="">
+    <Helmet title="Reservar">
       <CommonSection title="Información de Reserva" />
       <section className="background-section">
         <Container>
           <Row className="justify-content-center">
-            <section className="h-100 h-custom gradient-custom-2" >
+            <section className="h-100 h-custom gradient-custom-2">
               <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                   <div className="col-11">
                     <div
                       className="card card-registration card-registration-2"
-                      style={{ borderRadius: "15px", maxWidth: "1500px", margin: "0 auto" }}
+                      style={{
+                        borderRadius: "15px",
+                        maxWidth: "1500px",
+                        margin: "0 auto",
+                      }}
                     >
                       <div className="card-body p-0">
                         <div className="row g-0">
@@ -56,91 +113,77 @@ const Reservar = () => {
                             <div className="p-5">
                               <h5
                                 className="mb-4 fw-bold"
-                                style={{ color: "#000d6b",marginLeft: '30px'}}
+                                style={{ color: "#000d6b", marginLeft: "30px" }}
                               >
                                 Formulario Reservación de Vehículos
                               </h5>
-
-                              <FormGroup className="booking__form d-inline-block me-4 mb-4" style={{ marginLeft: '30px'}}>
+                              <h6
+                                className="mb-4"
+                                style={{ color: "#000d6b", marginLeft: "30px" }}
+                              >
+                                Vehículo: {vehiculo.marca} {vehiculo.modelo}
+                              </h6>
+                              <FormGroup
+                                className="booking__form d-inline-block me-4 mb-4"
+                                style={{ marginLeft: "30px" }}
+                              >
                                 <label
-                                  htmlFor="exampleFormControlInput1"
+                                  htmlFor="cantidadDias"
                                   className="form-label"
                                 >
-                                  Nombre completo:
+                                  Cantidad de días del alquiler del auto:
                                 </label>
-                                <div>
-                                  <input
-                                    type="text"
-                                    placeholder=""
-                                    id="NombreCliente"
-                                    name="NombreCliente"
-                                    value={formData.nombreCliente}
-                                    onChange={handleInputChange}
-                                    required
-                                  />
-                                </div>
+                                <input
+                                  type="number"
+                                  id="cantidadDias"
+                                  name="cantidadDias"
+                                  min="1"
+                                  value={formData.cantidadDias}
+                                  onChange={handleInputChange}
+                                  required
+                                />
                               </FormGroup>
 
-                              <div>
-                                <FormGroup className="booking__form d-inline-block me-4 mb-4" style={{ marginLeft: '30px'}}>
-                                  <label
-                                    htmlFor="exampleFormControlInput1"
-                                    className="form-label"
-                                  >
-                                    Cantidad de días del alquiler del auto:
-                                  </label>
-                                  <input
-                                    type="number"
-                                    id="cantidadDias"
-                                    placeholder=""
-                                    name="CantidadDias"
-                                    min="1"
-                                    value={formData.cantidadDias}
-                                    onChange={handleInputChange}
-                                    required
-                                  />
-                                </FormGroup>
-                              </div>
-
-                              <div>
-                                <FormGroup className="booking__form d-inline-block me-4 mb-4" style={{ marginLeft: '30px'}}>
-                                  <label
-                                    htmlFor="exampleFormControlInput1"
-                                    className="form-label"
-                                  >
-                                    Fecha inicial de la reservación:
-                                  </label>
-                                  <input
-                                    type="date"
-                                    placeholder=""
-                                    name="Fecha Inicial"
-                                    value={formData.fechaInicial}
-                                    onChange={handleInputChange}
-                                    required
-                                    min={new Date().toISOString().split('T')[0]} // Establece el mínimo como la fecha actual
-                               
-                                  />
-                                </FormGroup>
-                              </div>
-
-                              <FormGroup className="booking__form d-inline-block me-4 mb-4"style={{ marginLeft: '30px'}}>
+                              <FormGroup
+                                className="booking__form d-inline-block me-4 mb-4"
+                                style={{ marginLeft: "30px" }}
+                              >
                                 <label
-                                  htmlFor="exampleFormControlInput1"
+                                  htmlFor="fechaInicial"
+                                  className="form-label"
+                                >
+                                  Fecha inicial de la reservación:
+                                </label>
+                                <input
+                                  type="date"
+                                  id="fechaInicial"
+                                  name="fechaInicial"
+                                  value={formData.fechaInicial}
+                                  onChange={handleInputChange}
+                                  required
+                                  min={new Date().toISOString().split("T")[0]}
+                                />
+                              </FormGroup>
+
+                              <FormGroup
+                                className="booking__form d-inline-block me-4 mb-4"
+                                style={{ marginLeft: "30px" }}
+                              >
+                                <label
+                                  htmlFor="fechaFinal"
                                   className="form-label"
                                 >
                                   Fecha final de la reservación:
                                 </label>
-                                <div>
-                                  <input
-                                    type="date"
-                                    placeholder=""
-                                    name="Fecha Final"
-                                    value={formData.fechaFinal}
-                                    onChange={handleInputChange}
-                                    required
-                                    min={formData.fechaInicial} // Establece el mínimo como la fecha inicial
-                                  />
-                                </div>
+                                <input
+                                  type="date"
+                                  id="fechaFinal"
+                                  name="fechaFinal"
+                                  value={formData.fechaFinal}
+                                  onChange={handleInputChange}
+                                  required
+                                  min={formData.fechaInicial}
+                                />
                               </FormGroup>
                             </div>
                           </div>
@@ -152,7 +195,7 @@ const Reservar = () => {
 
                               <FormGroup className="booking__form d-inline-block me-4 mb-4">
                                 <label
-                                  htmlFor="exampleFormControlInput1"
+                                  htmlFor="fechaDevolucion"
                                   className="form-label"
                                   style={{ color: "#fff" }}
                                 >
@@ -160,60 +203,53 @@ const Reservar = () => {
                                 </label>
                                 <input
                                   type="date"
-                                
-                                  name="Fecha Devolución"
+                                  id="fechaDevolucion"
+                                  name="fechaDevolucion"
                                   value={formData.fechaDevolucion}
                                   onChange={handleInputChange}
                                   required
-                                  min={formData.fechaInicial} // Establece el mínimo como la fecha inicial
+                                  min={formData.fechaInicial}
                                 />
                               </FormGroup>
 
-                              <div className="devolver">
-                                <FormGroup className="booking__form d-inline-block ms-1 mb-2">
-                                  <label
-                                    htmlFor="exampleFormControlInput1"
-                                    className="form-label"
-                                    style={{ color: "#fff" }}
-                                  >
-                                    Hora de Entrega:
-                                  </label>
-                                  <input
-                                    type="time"
-                                    className="hora"
-                                    value="11:45:00"
-                                    max="22:30:00"
-                                    min="10:00:00"
-                                    step="1"
-                                    name="Fecha"
-                                  />
-                                </FormGroup>
-                              </div>
+                              <FormGroup className="booking__form d-inline-block ms-1 mb-2">
+                                <label
+                                  htmlFor="hora"
+                                  className="form-label"
+                                  style={{ color: "#fff" }}
+                                >
+                                  Hora de Entrega:
+                                </label>
+                                <input
+                                  type="time"
+                                  id="hora"
+                                  name="hora"
+                                  value={formData.hora}
+                                  onChange={handleInputChange}
+                                  required
+                                />
+                              </FormGroup>
 
-                              <div className="devolver">
-                                <FormGroup className="booking__form d-inline-block me-4 mb-4">
-                                  <div>
-                                    <label
-                                      htmlFor="d-flex align-items-center gap-2"
-                                      className="form-label"
-                                      style={{ color: "#fff" }}
-                                    >
-                                      Lugar de Entrega:
-                                    </label>
-                                    <input
-                                      type="text"
-                                      id="Lugar"
-                                    
-                                      name="Lugar"
-                                      value={formData.lugar}
-                                      onChange={handleInputChange}
-                                      required
-                                    />
-                                  </div>
-                                </FormGroup>
-                              </div>
+                              <FormGroup className="booking__form d-inline-block me-4 mb-4">
+                                <label
+                                  htmlFor="lugar"
+                                  className="form-label"
+                                  style={{ color: "#fff" }}
+                                >
+                                  Lugar de Entrega:
+                                </label>
+                                <input
+                                  type="text"
+                                  id="lugar"
+                                  name="lugar"
+                                  value={formData.lugar}
+                                  onChange={handleInputChange}
+                                  required
+                                />
+                              </FormGroup>
+
                               <div
-                                className=" d-flex align-items-center gap-2"
+                                className="d-flex align-items-center gap-2"
                                 style={{ color: "#fff" }}
                               >
                                 <span>
@@ -226,7 +262,8 @@ const Reservar = () => {
                                   adicional de $66.
                                 </span>
                               </div>
-                              <div className="devolver text-center mt-5">
+
+                              <div className="text-center mt-5">
                                 <button
                                   type="submit"
                                   onClick={handleSubmit}

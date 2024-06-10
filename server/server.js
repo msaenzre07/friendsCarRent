@@ -11,20 +11,8 @@ const Vehiculo = require('./src/models/VehiculoModel'); // Ajusta el path según
 
 
 const { register, login, logout, updateUser, getUserById } = require('./src/controllers/usuariosController');
-const {
-  createVehiculo,
-  getAllVehiculos,
-  getVehiculoById,
-  updateVehiculoById,
-  deleteVehiculoById
-} = require('./src/controllers/vehiculosController');
-const {
-  createReservacion,
-  getAllReservaciones,
-  getReservacionById,
-  updateReservacionById,
-  deleteReservacionById
-} = require('./src/controllers/ReservacionController');
+const { createVehiculo, getAllVehiculos, getVehiculoById, updateVehiculoById, deleteVehiculoById } = require('./src/controllers/vehiculosController');
+const { createReservacion, getAllReservaciones,getReservacionById,updateReservacionById,deleteReservacionById} = require('./src/controllers/ReservacionController');
 
 const app = express();
 const port = process.env.PORT || 3000;

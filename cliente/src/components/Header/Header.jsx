@@ -59,7 +59,7 @@ const Header = () => {
                                     </>
                                 ) : (
                                   <>
-                                  <span>Bienvenido, {user}</span>
+                                  <span>Bienvenido, {user.username}</span>
                                   <button onClick={handleLogout} className="btn primary_btn">
                                       <i className="ri-logout-circle-fill" style={{ color: '#D2691E' }}></i> Cerrar sesión
                                   </button>
