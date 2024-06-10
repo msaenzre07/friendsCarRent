@@ -60,13 +60,10 @@ const getVehiculoById = async (req, res) => {
   }
 };
 
-// Actualizar un vehículo por ID
 const updateVehiculoById = async (req, res) => {
   const { _id } = req.params;
   const { marca, modelo, transmision, kilometraje, precioDia, disponible } = req.body;
   const file = req.file; // Acceder al archivo cargado si existe
-
-  console.log(marca, modelo, transmision, kilometraje, precioDia, file, disponible);
 
   try {
     const updateData = {
@@ -79,7 +76,12 @@ const updateVehiculoById = async (req, res) => {
     };
 
     if (file) {
-      updateData.file = file.filename; // Actualizar solo si hay un nuevo archivo
+      // Subir el nuevo archivo a Google Drive
+      const googleFile = await uploadFile(file.path, file.mimetype);
+      updateData.file = googleFile.id; // Actualizar con el nuevo ID del archivo de Google Drive
+
+      // Eliminar el archivo temporalmente almacenado
+      fs.unlinkSync(file.path);
     }
 
     const updatedVehiculo = await Vehiculo.findByIdAndUpdate(
@@ -89,17 +91,17 @@ const updateVehiculoById = async (req, res) => {
     );
 
     if (!updatedVehiculo) {
-      console.log("Vehículo no encontrado:", _id);
       return res.status(404).json({ error: 'Vehículo no encontrado' });
     }
 
-    console.log("Vehículo actualizado:", updatedVehiculo);
     res.status(200).json({ Status: 'Success', vehiculo: updatedVehiculo });
   } catch (error) {
     console.error('Error al actualizar el vehículo:', error);
     res.status(500).json({ error: 'Error al actualizar el vehículo' });
   }
 };
+
+
 
 // Eliminar un vehículo por ID
 const deleteVehiculoById = async (req, res) => {

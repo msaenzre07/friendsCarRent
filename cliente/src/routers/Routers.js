@@ -6,15 +6,13 @@ import CarListing from "../pages/CarListing";
 import CarDetails from "../pages/CarDetails";
 import Contacto from "../pages/Contacto";
 import Vehiculos from "../pages/Vehiculos";
-import Login from "../pages/Login"
+import Login from "../pages/Login";
 import Registro from "../pages/Registro";
 import DatosUsuarios from "../pages/Usuarios";
 import Reservar from "../pages/Reservar";
 
-
 const Routers = () => {
     return (
-
         <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
@@ -27,10 +25,7 @@ const Routers = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/reservar" element={<Reservar />} />
-        
-
         </Routes>
-
     );
 };
 

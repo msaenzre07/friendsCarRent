@@ -13,7 +13,7 @@ function Vehiculos() {
   const [kilometraje, setKilometraje] = useState("");
   const [precioDia, setPrecioDia] = useState("");
   const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(""); // Agrega esto para manejar la URL del archivo
+  const [fileUrl, setFileUrl] = useState(""); // Manejar la URL del archivo
   const [disponible, setDisponible] = useState(true);
   const [_id, setId] = useState("");
   const [editar, setEditar] = useState(false);
@@ -36,7 +36,7 @@ function Vehiculos() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (editar) {
       updateVehiculos();
@@ -209,7 +209,6 @@ function Vehiculos() {
     setId(val._id);
     setDisponible(val.disponible);
   };
-
   return (
     <Helmet title="Mantenimiento de Vehículos">
       <CommonSection title="Mantenimiento de Vehículos" />

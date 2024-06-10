@@ -20,8 +20,6 @@ const Header = () => {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate(); // Cambio a useNavigate
 
-    
-
     const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
     const handleLogout = async () => {

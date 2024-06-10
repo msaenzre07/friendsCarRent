@@ -10,6 +10,7 @@ import Axios from 'axios';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { UserProvider } from './UserContext'; // Importar el UserProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,10 +18,10 @@ Axios.defaults.baseURL= 'https://git.heroku.com/friendscarrent.git'
 
 root.render(
   <React.StrictMode>
-    <Router>
-    <App />
-    </Router>
+    <UserProvider>
+      <Router>
+        <App />
+      </Router>
+    </UserProvider>
   </React.StrictMode>
 );
-
-
