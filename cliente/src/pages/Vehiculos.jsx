@@ -6,7 +6,7 @@ import CommonSection from "../components/UI/CommonSection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from 'sweetalert2';
 
- //Cambiadaaaaaaaaaaaa
+//Cambiadaaaaaaaaaaaa
 
 function Vehiculos() {
   const [marca, setMarca] = useState("");
@@ -83,24 +83,35 @@ function Vehiculos() {
       }
 
       const formData = new FormData();
-      formData.append("marca", marca);
-      formData.append("modelo", modelo);
-      formData.append("transmision", transmision);
-      formData.append("kilometraje", kilometraje);
-      formData.append("precioDia", precioDia);
-      formData.append("file", file);
-      formData.append("disponible", disponible);
+      formData.append('marca', marca);
+      formData.append('modelo', modelo);
+      formData.append('transmision', transmision);
+      formData.append('kilometraje', kilometraje);
+      formData.append('precioDia', precioDia);
+      if (file) {
+        formData.append('file', file);
+      }
+      formData.append('disponible', disponible);
       formData.append('pasajeros', pasajeros);
 
+      console.log("Datos enviados para actualización:", {
+        marca,
+        modelo,
+        transmision,
+        kilometraje,
+        precioDia,
+        disponible,
+        pasajeros,
+        file
+      });
+
       const response = await axios.put(
-        `http://localhost:3000/vehiculos/${id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+        `http://localhost:3000/vehiculos/${id}`, formData, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      );
+      });
+
       if (response.data.Status === "Success") {
         await getVehiculos();
         limpiarCampos();
@@ -177,6 +188,9 @@ function Vehiculos() {
     setId(val._id);
     setDisponible(val.disponible);
     setPasajeros(val.pasajeros);
+    setFile(val.file);
+    console.log("Datos del vehículo a editar:", val);
+    
   };
 
   const showErrorAlert = (message) => {
@@ -356,18 +370,18 @@ function Vehiculos() {
                     </div>
 
 
-                  <div className="card-footer text-muted">
-                    <button type="submit" className="btn btn-success m-1">
-                      {editar ? "Actualizar" : "Guardar"}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-warning m-1"
-                      onClick={limpiarCampos}
-                    >
-                      Cancelar
-                    </button>
-                  </div>
+                    <div className="card-footer text-muted">
+                      <button type="submit" className="btn btn-success m-1">
+                        {editar ? "Actualizar" : "Guardar"}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-warning m-1"
+                        onClick={limpiarCampos}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
                   </div>
                 </Form>
               </div>

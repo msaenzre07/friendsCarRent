@@ -36,6 +36,8 @@ app.get('/vehiculos/:id', vehiculosController.getVehiculoById);
 app.use('/uploads', express.static(path.join(__dirname, 'src', 'uploads')));
 
 app.put('/vehiculos/:id', vehiculosController.updateVehiculoById);
+
+
 app.delete('/vehiculos/:id', vehiculosController.deleteVehiculoById);
 
 app.post('/reservaciones', reservacionesController.createReservacion);

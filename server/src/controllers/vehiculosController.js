@@ -37,10 +37,10 @@ const getAllVehiculos = async (req, res) => {
     // Mapear los vehículos para incluir la URL de la imagen
     const vehiculosConImagen = vehiculos.map(vehiculo => ({
       ...vehiculo.toObject(),
-      imageUrl: `http://localhost:3000/uploads/${vehiculo.file}`
+      º: `http://localhost:3000/uploads/${vehiculo.file}`
 
     }));
-console.log(vehiculosConImagen);
+
     res.status(200).json(vehiculosConImagen);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los vehículos' });
@@ -60,28 +60,15 @@ const getVehiculoById = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el vehículo' });
   }
 };
-
 const updateVehiculoById = async (req, res) => {
   const { id } = req.params;
-  const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
-  const file = req.file;
+  console.log("ID recibido en el backend:", id);
+  console.log("Datos recibidos en el cuerpo de la solicitud:", req.body);
+
   try {
-    const updateData = {
-      marca,
-      modelo,
-      transmision,
-      kilometraje,
-      precioDia,
-      disponible,
-      pasajeros,
-    };
-
-    if (file) {
-    }
-
     const updatedVehiculo = await Vehiculo.findByIdAndUpdate(
       id,
-      updateData,
+      { $set: req.body },
       { new: true }
     );
 
