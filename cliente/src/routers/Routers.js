@@ -15,6 +15,8 @@ import Editar from "../pages/EditarPerfil";
 import Historial from "../pages/Historial";
 
 import Reportes from "../pages/MostReservedVehiclesReport";
+import DevolucionesVehiculo from "../pages/DevolucionVehiculo";
+
 
 
 const Routers = () => {
@@ -35,6 +37,8 @@ const Routers = () => {
             <Route path="/perfilEditar" element={<Editar />} />
             <Route path="/Historial" element={<Historial />} />
             <Route path="/reportes" element={<Reportes />} />
+            <Route path="/devolucionesVehiculo"element={<DevolucionesVehiculo />} />
+
         </Routes>
     );
 };
