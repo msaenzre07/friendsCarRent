@@ -12,8 +12,8 @@ const CarItem = ({ id, imgUrl, marca, modelo, precio, pasajeros }) => {
       await axios.put(`http://localhost:3000/vehiculos/${id}`, { disponible: true });
       // Mostrar notificación de éxito al usuario con SweetAlert
       swal("¡Vehículo entregado!", "El vehículo se ha entregado exitosamente.", "success");
-      // Refrescar la página
-      window.location.reload();
+    
+      
     } catch (error) {
       // Mostrar notificación de error al usuario con SweetAlert
       swal("Error", "Hubo un problema al entregar el vehículo. Por favor, inténtalo de nuevo.", "error");

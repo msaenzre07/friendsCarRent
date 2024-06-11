@@ -29,6 +29,7 @@ const createVehiculo = async (req, res) => {
     res.status(500).json({ status: 'Error', message: 'Error al crear vehículo', error: error.message });
   }
 };
+
 const getAllVehiculos = async (req, res) => {
   try {
     // Obtener todos los vehículos de la base de datos
@@ -37,7 +38,7 @@ const getAllVehiculos = async (req, res) => {
     // Mapear los vehículos para incluir la URL de la imagen
     const vehiculosConImagen = vehiculos.map(vehiculo => ({
       ...vehiculo.toObject(),
-      º: `http://localhost:3000/uploads/${vehiculo.file}`
+      imageUrl: `http://localhost:3000/uploads/${vehiculo.file}`
 
     }));
 
@@ -60,6 +61,9 @@ const getVehiculoById = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el vehículo' });
   }
 };
+
+
+
 const updateVehiculoById = async (req, res) => {
   const { id } = req.params;
   console.log("ID recibido en el backend:", id);

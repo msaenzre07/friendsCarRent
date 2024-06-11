@@ -26,7 +26,7 @@ const Reservar = () => {
     if (!user.id) {
       navigate('/login');
     }
-    
+
     // Obtener datos del vehículo
     const fetchVehiculo = async () => {
       try {
@@ -70,6 +70,7 @@ const Reservar = () => {
         },
         body: JSON.stringify(reservaData),
       });
+      navigate('/cars');
 
       if (response.ok) {
         console.log("Reserva creada con éxito");
@@ -82,7 +83,7 @@ const Reservar = () => {
           },
           body: JSON.stringify({ disponible: false }), // Actualizar a disponibilidad a false
         });
-
+        
         if (updateResponse.ok) {
           console.log("Estado de disponibilidad del vehículo actualizado correctamente");
         } else {
