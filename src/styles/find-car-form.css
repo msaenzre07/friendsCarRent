@@ -1,0 +1,132 @@
+.find__cars-left {
+  /*background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
+ url("../assets/all-images/toyota-offer-2.png");*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 76px 35px;
+}
+
+.find__cars-left h2 {
+  font-weight: 600;
+  font-size: 2.8rem;
+  color: #d2691e;
+}
+
+@keyframes moverTexto {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px); /* Mueve el texto 20px hacia la derecha */
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.textoAnimado {
+  animation: moverTexto 2s ease infinite; /* Animación que dura 2 segundos y se repite infinitamente */
+}
+
+.form {
+  background-image: url("../assets/all-images/fondo-blue.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 134px 0px;
+}
+
+.hero__slider-section {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 200px;
+}
+
+.hero__form {
+  position: absolute;
+  bottom: -150px;
+  z-index: 11;
+  width: 100%;
+}
+
+.form__row {
+  background: linear-gradient(rgb(0, 13, 107, 0.9), rgb(0, 13, 107, 0.9)),
+ url("../assets/all-images/imagen-veh.jpg");
+  box-shadow: 5px 5px 15px -5px #7c8a97;
+}
+.journey__time::before {
+  content: "Journey time";
+  margin-right: 0.8rem;
+  color: #7c8a97;
+}
+
+.find__car-btn {
+  background: #000d6b !important;
+  color: #fff !important;
+  padding: 8px 15px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+@media only screen and (max-width: 992px) {
+  .find__cars-left {
+    padding: 65px 22px;
+  }
+
+  .find__cars-left h2 {
+    font-size: 1.5rem;
+  }
+
+  .form {
+    padding: 30px 10px;
+  }
+
+  .hero__form {
+    bottom: -100px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .find__cars-left {
+    padding-top: 20px;
+    padding-bottom: 0;
+    background: #fff;
+    text-align: center;
+  }
+
+  .form {
+    padding: 20px 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .form__group {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+
+  .form__group input {
+    font-size: 0.7rem !important;
+  }
+
+  .select__group {
+    width: 100%;
+    padding-right: 10px;
+    font-size: 0.7rem;
+  }
+
+  .find__car-btn {
+    font-size: 0.8rem;
+  }
+
+  .find__cars-left h2 {
+    font-size: 1rem;
+  }
+
+  .hero__form {
+    bottom: -250px;
+  }
+}
