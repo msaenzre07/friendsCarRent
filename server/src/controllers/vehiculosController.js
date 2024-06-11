@@ -1,20 +1,15 @@
 const Vehiculo = require('../models/VehiculoModel');
-const { uploadFile,getFileUrl } = require('../../googleDriveService');
-const upload = require('../middleware/uploadjs');
+
+const upload = require('../middleware/upload');
 
 const createVehiculo = async (req, res) => {
-  console.log(req.file);
   try {
     const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
-    const file = req.file;
-    console.log(file);
-    if (file) {
-      console.log("111");
-      const uploadedFile = await uploadFile(file, file.mimetype);
-      req.body.file = uploadedFile.name || uploadedFile.data.name;
-     
+    const file = req.file ? req.file.filename : null; // Obtener el nombre del archivo si existe
+
+    if (!file) {
+      return res.status(400).json({ status: 'Error', message: 'El archivo es obligatorio' });
     }
-    console.log(marca, file);
 
     const newVehiculo = new Vehiculo({
       marca,
@@ -23,7 +18,7 @@ const createVehiculo = async (req, res) => {
       kilometraje,
       precioDia,
       disponible,
-      file: req.body.file,
+      file,
       pasajeros,
     });
 
@@ -33,41 +28,18 @@ const createVehiculo = async (req, res) => {
     res.status(500).json({ status: 'Error', message: 'Error al crear vehículo', error: error.message });
   }
 };
-
 const getAllVehiculos = async (req, res) => {
   try {
     // Obtener todos los vehículos de la base de datos
     const vehiculos = await Vehiculo.find();
-
-    // Mapear cada vehículo para obtener la URL de la imagen desde Google Drive
-   // const vehiculosConImagenes = await Promise.all(vehiculos.map(async (vehiculo) => {
-      // Verificar si hay un archivo asociado al vehículo
-     // if (vehiculo.file) {
-        // Obtener la URL de la imagen desde Google Drive
-      //  const fileMetadata = await drive.files.get({ fileId: vehiculo.file, fields: 'webViewLink' });
-       // return {
-       //   ...vehiculo.toJSON(),
-       //   imagenUrl: fileMetadata.data.webViewLink // Agregar la URL de la imagen al objeto del vehículo
-      //  };
-      //} else {
-       // return vehiculo.toJSON(); // Si no hay archivo, devolver solo los datos del vehículo sin la URL de la imagen
-     // }
-   
-   // }));
-
-    // Devolver los vehículos con las URLs de las imágenes
     res.status(200).json(vehiculos);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los vehículos' });
   }
 };
 
-
-
-
 const getVehiculoById = async (req, res) => {
   const { id } = req.params;
-
   try {
     const vehiculo = await Vehiculo.findById(id);
     if (!vehiculo) {
@@ -83,7 +55,6 @@ const updateVehiculoById = async (req, res) => {
   const { id } = req.params;
   const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
   const file = req.file;
-
   try {
     const updateData = {
       marca,
@@ -96,8 +67,11 @@ const updateVehiculoById = async (req, res) => {
     };
 
     if (file) {
-      const uploadedFile = await uploadFile(file, file.mimetype);
-      updateData.file = uploadedFile.id;
+      // Aquí puedes manejar la lógica para subir el archivo a donde quieras
+      // Puedes utilizar librerías como aws-sdk para subir a Amazon S3, o simplemente guardar en tu servidor
+      // Aquí te muestro un ejemplo de cómo podrías hacerlo con multer, pero depende de tu configuración y necesidades
+      // const uploadedFile = await uploadFile(file, file.mimetype);
+      // updateData.file = uploadedFile.id;
     }
 
     const updatedVehiculo = await Vehiculo.findByIdAndUpdate(

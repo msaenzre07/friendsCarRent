@@ -3,7 +3,7 @@ import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
-const CarItem = ({ id,imgUrl, marca, modelo, precio, pasajeros }) => {
+const CarItem = ({ id, file, marca, modelo, precio, pasajeros }) => {
   return (
     <Col lg="4" md="4" sm="6" className="mb-5">
       <div className="car__item">
@@ -21,7 +21,7 @@ const CarItem = ({ id,imgUrl, marca, modelo, precio, pasajeros }) => {
             </span>
           </div>
           <div className="car__img">
-            <img src={imgUrl} alt="" className="w-100" />
+            <img src={"uploads/"+file} alt="" className="w-100" />
           </div>
           <button className="w-50 car__item-btn car__btn-rent">
           <Link to={`/reservar/${id}`}>Reservar</Link>

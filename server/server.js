@@ -3,9 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
-
-const upload = require('./src/middleware/uploadjs'); // Importa el middleware de multer
-const { uploadFile } = require('./googleDriveService');
+const upload = require('./src/middleware/upload.js');
 
 const usuariosController = require('./src/controllers/usuariosController');
 const vehiculosController = require('./src/controllers/vehiculosController');
@@ -30,20 +28,7 @@ app.post('/logout', usuariosController.logout);
 app.put('/usuarios/:id', usuariosController.updateUser);
 app.get('/usuarios/:id', usuariosController.getUserById);
 
-
-app.use(upload.single('file'));
-app.post('/upload', async (req, res) => {
-  try {
-    const fileUrl = await uploadFile(req.file);
-    res.status(200).json({ fileUrl });
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    res.status(500).json({ message: 'Error uploading file', error: error.message });
-  }
-});
-
-
-app.post('/vehiculos', vehiculosController.createVehiculo);
+app.post('/vehiculos', upload.single('file'), vehiculosController.createVehiculo);
 app.get('/vehiculos', vehiculosController.getAllVehiculos);
 app.get('/vehiculos/:id', vehiculosController.getVehiculoById);
 app.put('/vehiculos/:id', vehiculosController.updateVehiculoById);

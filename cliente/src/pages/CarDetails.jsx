@@ -30,7 +30,7 @@ const CarDetails = () => {
         <Container>
           <Row>
             <Col lg="6">
-              <img src={vehiculo.imgUrl} alt="" className="w-100" />
+              <img src={vehiculo.file} alt="" className="w-100" />
             </Col>
 
             <Col lg="6">
