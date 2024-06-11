@@ -31,6 +31,8 @@ app.get('/usuarios/:id', usuariosController.getUserById);
 app.post('/vehiculos', upload.single('file'), vehiculosController.createVehiculo);
 app.get('/vehiculos', vehiculosController.getAllVehiculos);
 app.get('/vehiculos/:id', vehiculosController.getVehiculoById);
+app.use('/uploads', express.static('uploads'));
+
 app.put('/vehiculos/:id', vehiculosController.updateVehiculoById);
 app.delete('/vehiculos/:id', vehiculosController.deleteVehiculoById);
 

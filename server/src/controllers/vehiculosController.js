@@ -2,6 +2,7 @@ const Vehiculo = require('../models/VehiculoModel');
 
 const upload = require('../middleware/upload');
 
+
 const createVehiculo = async (req, res) => {
   try {
     const { marca, modelo, transmision, kilometraje, precioDia, disponible, pasajeros } = req.body;
@@ -36,14 +37,16 @@ const getAllVehiculos = async (req, res) => {
     // Mapear los vehículos para incluir la URL de la imagen
     const vehiculosConImagen = vehiculos.map(vehiculo => ({
       ...vehiculo.toObject(),
-      imageUrl: `${req.protocol}://${req.get('host')}/uploads/${vehiculo.file}`
-    }));
+      imageUrl: `http://localhost:3000/uploads/${vehiculo.file}`
 
+    }));
+console.log(vehiculosConImagen);
     res.status(200).json(vehiculosConImagen);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los vehículos' });
   }
 };
+
 
 const getVehiculoById = async (req, res) => {
   const { id } = req.params;
