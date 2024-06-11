@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 
-const upload = require('./src/middleware/upload.js'); // Importa el middleware de multer
+const upload = require('./src/middleware/uploadjs'); // Importa el middleware de multer
 const { uploadFile } = require('./googleDriveService');
 
 const usuariosController = require('./src/controllers/usuariosController');

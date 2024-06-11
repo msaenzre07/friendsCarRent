@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { Link, NavLink , useNavigate } from "react-router-dom";
 import "../../styles/header.css";
@@ -9,18 +9,24 @@ import axios from "axios"; // Importa Axios
 const navLinks = [
     { path: "/home", display: "Home" },
     { path: "/about", display: "¿Quiénes Somos?" },
-    { path: "/vehiculos", display: "Mantenimiento de Autos" },
+   
     { path: "/cars", display: "Reservar" },
     { path: "/Reservar", display: "Información de Reserva" },
     { path: "/contacto", display: "Contáctenos" },
 ];
+const adminNavLinks = [
+    { path: "/vehiculos", display: "Mantenimiento de Autos" },
+];
+
 
 const Header = () => {
     const menuRef = useRef(null);
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate(); // Cambio a useNavigate
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
     const handleLogout = async () => {
       try {
@@ -58,16 +64,21 @@ const Header = () => {
                                         </button>
                                     </>
                                 ) : (
-                                  <>
-                                  <span>Bienvenido, {user.username}</span>
-                                  <button onClick={handleLogout} className="btn primary_btn">
-                                      <i className="ri-logout-circle-fill" style={{ color: '#D2691E' }}></i> Cerrar sesión
-                                  </button>
-                              </>
-                                    
-                                )}
-                            </div>
-                        </Col>
+                                    <div className="user-menu">
+                                    <span onClick={toggleDropdown} className="user-name">
+                                        Bienvenido, {user.username} <i className={`ri-arrow-${isDropdownOpen ? 'up' : 'down'}-s-line`}></i>
+                                    </span>
+                                    {isDropdownOpen && (
+                                        <div className="user-dropdown">
+                                            <Link to="/perfil" className="dropdown-item">Mi perfil</Link>
+                                            <Link to="/historial" className="dropdown-item">Mi historial</Link>
+                                            <button onClick={handleLogout} className="dropdown-item">Cerrar sesión</button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </Col>
                     </Row>
                 </Container>
             </div>
@@ -126,10 +137,20 @@ const Header = () => {
                         </span>
                         <div className="navigation" ref={menuRef} onClick={toggleMenu}>
                             <div className="menu">
-                                {navLinks.map((item, index) => (
+
+                                 {navLinks.map((item, index) => (
                                     <NavLink
                                         to={item.path}
-                                        className={(navclassName) => navclassName.isActive ? "nav__active nav__item" : "nav__item"}
+                                        className={(navClassName) => navClassName.isActive ? "nav__active nav__item" : "nav__item"}
+                                        key={index}
+                                    >
+                                        {item.display}
+                                    </NavLink>
+                                ))}
+                                {user && user.role === 'admin' && adminNavLinks.map((item, index) => (
+                                    <NavLink
+                                        to={item.path}
+                                        className={(navClassName) => navClassName.isActive ? "nav__active nav__item" : "nav__item"}
                                         key={index}
                                     >
                                         {item.display}

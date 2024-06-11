@@ -1,5 +1,5 @@
-import React, { useState, useEffect , useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, FormGroup } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
@@ -9,6 +9,7 @@ import { UserContext } from '../UserContext';
 
 
 const Reservar = () => {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const { id } = useParams();
   const [vehiculo, setVehiculo] = useState({});
@@ -22,6 +23,10 @@ const Reservar = () => {
   });
 
   useEffect(() => {
+    if (!user.id) {
+      navigate('/login');
+    }
+    
     // Obtener datos del vehículo
     const fetchVehiculo = async () => {
       try {
@@ -44,14 +49,19 @@ const Reservar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user.id) {
+      alert("Por favor, inicia sesión para realizar una reserva.");
+      return;
+    }
+
     const reservaData = {
       ...formData,
       id_vehiculo: id,
       id_usuario: user.id, // Usar el id del usuario del contexto
     };
-  
+
     console.log("Enviando datos de reserva:", reservaData);
-  
+
     try {
       const response = await fetch("http://localhost:3000/reservaciones", {
         method: "POST",
@@ -60,10 +70,10 @@ const Reservar = () => {
         },
         body: JSON.stringify(reservaData),
       });
-  
+
       if (response.ok) {
         console.log("Reserva creada con éxito");
-  
+
         // Actualizar disponibilidad del vehículo
         const updateResponse = await fetch(`http://localhost:3000/vehiculos/${id}`, {
           method: "PUT",
@@ -72,7 +82,7 @@ const Reservar = () => {
           },
           body: JSON.stringify({ disponible: false }), // Actualizar a disponibilidad a false
         });
-  
+
         if (updateResponse.ok) {
           console.log("Estado de disponibilidad del vehículo actualizado correctamente");
         } else {
@@ -86,9 +96,7 @@ const Reservar = () => {
       console.error("Error al enviar la solicitud de reserva", error);
     }
   };
-  
 
- 
   return (
     <Helmet title="Reservar">
       <CommonSection title="Información de Reserva" />

@@ -39,8 +39,9 @@ function Login() {
         swal('Éxito', response.data.message, 'success');
         setUser({
           username: response.data.username,
-          id: response.data.userId 
-          
+          id: response.data.userId ,
+          rol: response.data.userRol
+        
         });
 
         navigate('/home'); // Navegar a la página de inicio después de iniciar sesión

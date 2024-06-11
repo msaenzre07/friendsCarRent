@@ -1,6 +1,6 @@
 const Vehiculo = require('../models/VehiculoModel');
-const { uploadFile } = require('../../googleDriveService');
-const upload = require('../middleware/upload.js');
+const { uploadFile,getFileUrl } = require('../../googleDriveService');
+const upload = require('../middleware/uploadjs');
 
 const createVehiculo = async (req, res) => {
   console.log(req.file);
@@ -36,12 +36,34 @@ const createVehiculo = async (req, res) => {
 
 const getAllVehiculos = async (req, res) => {
   try {
+    // Obtener todos los vehículos de la base de datos
     const vehiculos = await Vehiculo.find();
+
+    // Mapear cada vehículo para obtener la URL de la imagen desde Google Drive
+   // const vehiculosConImagenes = await Promise.all(vehiculos.map(async (vehiculo) => {
+      // Verificar si hay un archivo asociado al vehículo
+     // if (vehiculo.file) {
+        // Obtener la URL de la imagen desde Google Drive
+      //  const fileMetadata = await drive.files.get({ fileId: vehiculo.file, fields: 'webViewLink' });
+       // return {
+       //   ...vehiculo.toJSON(),
+       //   imagenUrl: fileMetadata.data.webViewLink // Agregar la URL de la imagen al objeto del vehículo
+      //  };
+      //} else {
+       // return vehiculo.toJSON(); // Si no hay archivo, devolver solo los datos del vehículo sin la URL de la imagen
+     // }
+   
+   // }));
+
+    // Devolver los vehículos con las URLs de las imágenes
     res.status(200).json(vehiculos);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los vehículos' });
   }
 };
+
+
+
 
 const getVehiculoById = async (req, res) => {
   const { id } = req.params;

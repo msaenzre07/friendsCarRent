@@ -29,7 +29,7 @@ const DatosUsuarios = () => {
       try {
         const response = await axios.get(`http://localhost:3000/usuarios/${id}`);
         const user = response.data;
-        setNombreCompleto(user.nombreCompleto);
+       setNombreCompleto(user.nombreCompleto);
         setEmail(user.email);
         setPhone(user.phone);
         setNacionalidad(user.nacionalidad);

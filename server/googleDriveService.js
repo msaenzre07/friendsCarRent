@@ -31,7 +31,19 @@ const uploadFile = async (fileData, mimeType) => {
     throw error;
   }
 };
+const getFileUrl = async (fileId) => {
+  try {
+    const response = await drive.files.get({
+      fileId: fileId,
+      fields: 'webViewLink'
+    });
+    return response.data.webViewLink;
+  } catch (error) {
+    console.error('Error getting file URL from Google Drive:', error);
+    throw error;
+  }
+};
 
 module.exports = {
-  uploadFile
+  uploadFile,getFileUrl
 };
