@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Container, Row } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
-import CarItem from "../components/UI/CarItem";
+import CarItem from "../components/UI/CarItemDevo";
 import axios from "axios";
 
-const CarListing = () => {
+const DevolucionVehiculo = () => {
   const [vehiculos, setVehiculos] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/vehiculos")
       .then(response => {
         // Filtrar solo los vehículos con disponibilidad true
-        const vehiculosDisponibles = response.data.filter(vehiculo => vehiculo.disponible);
+        const vehiculosDisponibles = response.data.filter(vehiculo => !vehiculo.disponible);
         setVehiculos(vehiculosDisponibles);
       })
       .catch(error => {
@@ -21,8 +21,8 @@ const CarListing = () => {
   }, []);
 
   return (
-    <Helmet title="Nuestros Vehículos">
-      <CommonSection title="Nuestros Vehículos de Alquiler" />
+    <Helmet title="Vehículos Reservados">
+      <CommonSection title="Vehiculos Reservados" />
       <section>
         <Container>
           <Row>
@@ -44,4 +44,4 @@ const CarListing = () => {
   );
 };
 
-export default CarListing;
+export default DevolucionVehiculo;

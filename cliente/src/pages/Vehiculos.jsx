@@ -394,7 +394,7 @@ function Vehiculos() {
                       <td>{val.kilometraje}</td>
                       <td>{val.precioDia}</td>
                       <td>{val.pasajeros}</td>
-                      <td>{val.disponible ? "Sí" : "No"}</td>
+                      <td>{val.disponible ? "Activo" : "Inactivo"}</td>
                       <td>
                         <button
                           className="btn btn-info"

@@ -10,11 +10,12 @@ const navLinks = [
     { path: "/home", display: "Home" },
     { path: "/about", display: "¿Quiénes Somos?" },
     { path: "/cars", display: "Reservar" },
-    { path: "/Reservar", display: "Información de Reserva" },
+    
     { path: "/contacto", display: "Contáctenos" },
 ];
 const adminNavLinks = [
     { path: "/vehiculos", display: "Mantenimiento de Autos" },
+    { path: "/devolucionesVehiculo", display: "Devolucion Vehicular" },
 ];
 
 

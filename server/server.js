@@ -2,7 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-
+const path = require('path');
 const upload = require('./src/middleware/upload.js');
 
 const usuariosController = require('./src/controllers/usuariosController');
@@ -29,9 +29,11 @@ app.put('/usuarios/:id', usuariosController.updateUser);
 app.get('/usuarios/:id', usuariosController.getUserById);
 
 app.post('/vehiculos', upload.single('file'), vehiculosController.createVehiculo);
+app.put('/vehiculos/devolver/:id', vehiculosController.devolverVehiculo);
 app.get('/vehiculos', vehiculosController.getAllVehiculos);
 app.get('/vehiculos/:id', vehiculosController.getVehiculoById);
-app.use('/uploads', express.static('uploads'));
+
+app.use('/uploads', express.static(path.join(__dirname, 'src', 'uploads')));
 
 app.put('/vehiculos/:id', vehiculosController.updateVehiculoById);
 app.delete('/vehiculos/:id', vehiculosController.deleteVehiculoById);

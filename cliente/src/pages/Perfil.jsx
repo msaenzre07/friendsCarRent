@@ -4,7 +4,8 @@ import { UserContext } from '../UserContext';
 import axios from 'axios';
 import '../styles/profile.css';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-
+import Helmet from "../components/Helmet/Helmet";
+import CommonSection from "../components/UI/CommonSection";
 
 const Perfil = () => {
     const { user } = useContext(UserContext);
@@ -35,6 +36,9 @@ const Perfil = () => {
     }
 
     return (
+        <Helmet title="Datos del Usuario">
+      <CommonSection title="Datos del Usuario" />
+      <section>
         <Container>
             <Row className="justify-content-center">
                 <Col lg="6" md="8" sm="10">
@@ -57,6 +61,9 @@ const Perfil = () => {
                 </Col>
             </Row>
         </Container>
+          
+          </section>
+        </Helmet>
     );
 };
 

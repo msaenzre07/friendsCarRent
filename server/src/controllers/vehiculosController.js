@@ -73,15 +73,10 @@ const updateVehiculoById = async (req, res) => {
       kilometraje,
       precioDia,
       disponible,
-      pasajeros
+      pasajeros,
     };
 
     if (file) {
-      // Aquí puedes manejar la lógica para subir el archivo a donde quieras
-      // Puedes utilizar librerías como aws-sdk para subir a Amazon S3, o simplemente guardar en tu servidor
-      // Aquí te muestro un ejemplo de cómo podrías hacerlo con multer, pero depende de tu configuración y necesidades
-      // const uploadedFile = await uploadFile(file, file.mimetype);
-      // updateData.file = uploadedFile.id;
     }
 
     const updatedVehiculo = await Vehiculo.findByIdAndUpdate(
@@ -115,6 +110,32 @@ const deleteVehiculoById = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar el vehículo' });
   }
 };
+const devolverVehiculo = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Buscar el vehículo por ID
+    const vehiculo = await Vehiculo.findById(id);
+    
+    // Si el vehículo no existe, devolver un error
+    if (!vehiculo) {
+      return res.status(404).json({ error: 'Vehículo no encontrado' });
+    }
+
+    // Activar la disponibilidad del vehículo
+    vehiculo.disponible = true;
+
+    // Guardar los cambios en la base de datos
+    await vehiculo.save();
+
+    // Responder con un mensaje de éxito
+    res.status(200).json({ message: 'Vehículo devuelto exitosamente' });
+  } catch (error) {
+    // Manejar cualquier error
+    console.error('Error al devolver el vehículo:', error);
+    res.status(500).json({ error: 'Error al devolver el vehículo' });
+  }
+};
 
 module.exports = {
   createVehiculo,
@@ -122,4 +143,5 @@ module.exports = {
   getVehiculoById,
   updateVehiculoById,
   deleteVehiculoById,
+  devolverVehiculo
 };
