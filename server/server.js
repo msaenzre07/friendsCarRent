@@ -51,9 +51,12 @@ app.delete('/vehiculos/:id', vehiculosController.deleteVehiculoById);
 
 app.post('/reservaciones', reservacionesController.createReservacion);
 app.get('/reservaciones', reservacionesController.getAllReservaciones);
+app.get('/reservaciones/usuario/:id_usuario', reservacionesController.getReservacionesByUserId);
 app.get('/reservaciones/:id', reservacionesController.getReservacionById);
 app.put('/reservaciones/:id', reservacionesController.updateReservacionById);
 app.delete('/reservaciones/:id', reservacionesController.deleteReservacionById);
+app.get('/reportes/vehiculos-mas-reservados', reservacionesController.getMostReservedVehicles);
+app.get('/reportes/vehiculos-menos-reservados', reservacionesController.getLeastReservedVehicles);
 
 // Iniciar el servidor
 app.listen(port, () => { console.log(`Server started at port ${port}`); });

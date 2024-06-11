@@ -39,7 +39,7 @@ const createReservacion = async (req, res) => {
 // Obtener todas las reservas
 const getAllReservaciones = async (req, res) => {
   try {
-    const reservaciones = await Reservar.find().populate('id_vehiculo').populate('id_usuario');
+    const reservaciones = await Reservar.find();
     res.status(200).json(reservaciones);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las reservas' });
@@ -58,6 +58,19 @@ const getReservacionById = async (req, res) => {
     res.status(200).json(reservacion);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener la reserva' });
+  }
+};
+const getReservacionesByUserId = async (req, res) => {
+  const { id_usuario } = req.params;
+
+  try {
+    const reservaciones = await Reservar.find({ id_usuario });
+    if (reservaciones.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron reservas para este usuario' });
+    }
+    res.status(200).json(reservaciones);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las reservas del usuario' });
   }
 };
 
@@ -112,5 +125,34 @@ const deleteReservacionById = async (req, res) => {
   }
 };
 
-module.exports = { createReservacion, getAllReservaciones, getReservacionById, updateReservacionById, deleteReservacionById
+const getMostReservedVehicles = async (req, res) => {
+  try {
+    const mostReservedVehicles = await Reservar.aggregate([
+      { $group: { _id: "$id_vehiculo", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 } // Obtener los 5 vehículos más reservados
+    ]);
+
+    res.status(200).json(mostReservedVehicles);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los vehículos más reservados' });
+  }
+};
+
+const getLeastReservedVehicles = async (req, res) => {
+  try {
+    const leastReservedVehicles = await Reservar.aggregate([
+      { $group: { _id: "$id_vehiculo", count: { $sum: 1 } } },
+      { $sort: { count: 1 } },
+      { $limit: 5 } // Obtener los 5 vehículos menos reservados
+    ]);
+
+    res.status(200).json(leastReservedVehicles);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener los vehículos menos reservados' });
+  }
+};
+
+
+module.exports = { createReservacion, getAllReservaciones,getMostReservedVehicles,getLeastReservedVehicles , getReservacionById, updateReservacionById, deleteReservacionById,getReservacionesByUserId
 };

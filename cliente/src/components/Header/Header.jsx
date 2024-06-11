@@ -9,7 +9,6 @@ import axios from "axios"; // Importa Axios
 const navLinks = [
     { path: "/home", display: "Home" },
     { path: "/about", display: "¿Quiénes Somos?" },
-   
     { path: "/cars", display: "Reservar" },
     { path: "/Reservar", display: "Información de Reserva" },
     { path: "/contacto", display: "Contáctenos" },
@@ -147,7 +146,7 @@ const Header = () => {
                                         {item.display}
                                     </NavLink>
                                 ))}
-                                {user && user.role === 'admin' && adminNavLinks.map((item, index) => (
+                                {user && user.rol === 'admin' && adminNavLinks.map((item, index) => (
                                     <NavLink
                                         to={item.path}
                                         className={(navClassName) => navClassName.isActive ? "nav__active nav__item" : "nav__item"}

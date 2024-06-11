@@ -12,7 +12,9 @@ import DatosUsuarios from "../pages/Usuarios";
 import Reservar from "../pages/Reservar";
 import Perfil from "../pages/Perfil";
 import Editar from "../pages/EditarPerfil";
+import Historial from "../pages/Historial";
 
+import Reportes from "../pages/MostReservedVehiclesReport";
 
 
 const Routers = () => {
@@ -29,9 +31,10 @@ const Routers = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/reservar/:id" element={<Reservar />} />
-            <Route path="/perfil" element={<Perfil/>} />
-            <Route path="/perfilEditar" element={<Editar/>} />
-
+            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/perfilEditar" element={<Editar />} />
+            <Route path="/Historial" element={<Historial />} />
+            <Route path="/reportes" element={<Reportes />} />
         </Routes>
     );
 };
