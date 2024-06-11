@@ -32,7 +32,14 @@ const getAllVehiculos = async (req, res) => {
   try {
     // Obtener todos los vehículos de la base de datos
     const vehiculos = await Vehiculo.find();
-    res.status(200).json(vehiculos);
+    
+    // Mapear los vehículos para incluir la URL de la imagen
+    const vehiculosConImagen = vehiculos.map(vehiculo => ({
+      ...vehiculo.toObject(),
+      imageUrl: `${req.protocol}://${req.get('host')}/uploads/${vehiculo.file}`
+    }));
+
+    res.status(200).json(vehiculosConImagen);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener los vehículos' });
   }

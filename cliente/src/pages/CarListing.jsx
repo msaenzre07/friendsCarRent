@@ -28,7 +28,7 @@ const CarListing = () => {
               <CarItem
                 key={vehiculo._id}
                 id={vehiculo._id}
-                imgUrl={vehiculo.file} // Asegúrate de usar imagenUrl aquí
+                imgUrl={vehiculo.imageUrl} // Asegúrate de usar imagenUrl aquí
                 marca={vehiculo.marca}
                 modelo={vehiculo.modelo}
                 precio={vehiculo.precioDia}
