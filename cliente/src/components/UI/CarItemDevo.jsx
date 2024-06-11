@@ -5,6 +5,11 @@ import swal from 'sweetalert'; // Importar SweetAlert
 import "../../styles/car-item.css";
 
 const CarItem = ({ id, imgUrl, marca, modelo, precio, pasajeros }) => {
+    const imgStyle = {
+        width: '90%',
+        height: '200px', // Ajusta la altura según lo necesario
+        objectFit: 'cover'
+      };
   // Función para manejar el clic en "Entregado"
   const handleEntregadoClick = async () => {
     try {
@@ -38,7 +43,7 @@ const CarItem = ({ id, imgUrl, marca, modelo, precio, pasajeros }) => {
             </span>
           </div>
           <div className="car__img">
-            <img src={imgUrl} alt="" className="w-100" />
+            <img src={imgUrl} alt=""style={imgStyle} />
           </div>
           {/* Agregar evento onClick y función de manejo */}
           <button className="w-50 car__item-btn car__btn-rent" onClick={handleEntregadoClick}>
