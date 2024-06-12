@@ -15,6 +15,13 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Servir los archivos estáticos de la carpeta 'build' generada por react-scripts
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Manejar todas las rutas y enviar el archivo HTML principal
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const mongoString = process.env.DATABASE_URL;
 mongoose.connect(mongoString, { useNewUrlParser: true, useUnifiedTopology: true })
